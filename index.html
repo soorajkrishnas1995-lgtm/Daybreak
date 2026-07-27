@@ -278,12 +278,12 @@
           </div>
           <div class="hero-card global">
             <span class="tag">Global</span>
-            <div class="eyebrow"><span class="dt"></span>Berlin · Terror Attack</div>
-            <a class="headline" href="https://www.washingtonpost.com/world/2026/07/26/berlin-pride-attack-investigated-terrorism-with-suspect-large/" target="_blank" rel="noopener">
-              <h3>Suspect in deadly Berlin Pride van attack shot dead by police after 20-hour manhunt</h3>
+            <div class="eyebrow"><span class="dt"></span>France & Spain · Wildfires</div>
+            <a class="headline" href="https://www.cnn.com/2026/07/27/world/live-news/france-spain-wildfires-evacuations" target="_blank" rel="noopener">
+              <h3>Wildfires rage on as evacuee count tops 300,000 and Spain records its first fire death</h3>
             </a>
-            <p>A 21-year-old German-Lebanese man who drove a van into a crowd at Berlin's Christopher Street Day festival, killing one woman and injuring more than a dozen people, was shot dead by police in the Spandau district after he charged at officers with a knife-like weapon. German officials are treating the attack as suspected Islamist terrorism; the suspect had previously tried to join the Islamic State group.</p>
-            <div class="src">The Washington Post</div>
+            <p>More than 2,500 firefighters are still battling an uncontained blaze near Bordeaux that has burned 42,000 hectares -- four times the size of Paris -- after a man's death in Valencia became Spain's first recorded fatality of the crisis. French officials warned of 'difficult hours ahead' with temperatures set to rebound past 100F mid-week, threatening to undo containment efforts.</p>
+            <div class="src">CNN</div>
           </div>
         </div>
         
@@ -493,22 +493,22 @@
     <section class="panel" id="panel-world">
       <div class="panel-head"><span class="swatch" style="background:var(--plum)"></span><h2>World</h2><span class="sub">Global</span></div>
       <div class="hero">
-        <div class="eyebrow"><span class="dt"></span>Berlin · Terror Attack</div>
-            <a class="headline" href="https://www.washingtonpost.com/world/2026/07/26/berlin-pride-attack-investigated-terrorism-with-suspect-large/" target="_blank" rel="noopener">
-              <h3>Suspect in deadly Berlin Pride van attack shot dead by police after 20-hour manhunt</h3>
+        <div class="eyebrow"><span class="dt"></span>France & Spain · Wildfires</div>
+            <a class="headline" href="https://www.cnn.com/2026/07/27/world/live-news/france-spain-wildfires-evacuations" target="_blank" rel="noopener">
+              <h3>Wildfires rage on as evacuee count tops 300,000 and Spain records its first fire death</h3>
             </a>
-            <p>A 21-year-old German-Lebanese man who drove a van into a crowd at Berlin's Christopher Street Day festival, killing one woman and injuring more than a dozen people, was shot dead by police in the Spandau district after he charged at officers with a knife-like weapon. German officials are treating the attack as suspected Islamist terrorism; the suspect had previously tried to join the Islamic State group.</p>
-            <div class="src">The Washington Post</div>
+            <p>More than 2,500 firefighters are still battling an uncontained blaze near Bordeaux that has burned 42,000 hectares -- four times the size of Paris -- after a man's death in Valencia became Spain's first recorded fatality of the crisis. French officials warned of 'difficult hours ahead' with temperatures set to rebound past 100F mid-week, threatening to undo containment efforts.</p>
+            <div class="src">CNN</div>
       </div>
       <div class="section-label">Also today</div>
       <div class="story-list">
         
         <div class="story">
-          <a class="headline" href="https://www.npr.org/2026/07/25/nx-s1-5907997/germany-lgbtq-event-dead-injured-pride" target="_blank" rel="noopener">
-            <h4>One dead, dozens injured as van rams Berlin Pride crowd</h4>
+          <a class="headline" href="https://www.washingtonpost.com/world/2026/07/26/berlin-pride-attack-investigated-terrorism-with-suspect-large/" target="_blank" rel="noopener">
+            <h4>Suspect in deadly Berlin Pride van attack shot dead by police after 20-hour manhunt</h4>
           </a>
-          <p>The attacker drove into revellers at the festival's closing party in Tiergarten park before allegedly attacking others with a bladed weapon; German leaders called it an assault on the country's open society.</p>
-          <div class="src">NPR</div>
+          <p>A 21-year-old German-Lebanese man who drove a van into a crowd at Berlin's Christopher Street Day festival, killing one woman and injuring more than a dozen people, was shot dead by police in the Spandau district after he charged at officers with a knife-like weapon.</p>
+          <div class="src">The Washington Post</div>
         </div>
 
         <div class="story">
@@ -653,11 +653,10 @@
 </div>
 
 <script>
-  // Dynamic dateline — always reflects the day the page is actually opened
-  const today = new Date();
-  const formatted = today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-  document.getElementById('dateline').textContent = formatted;
-  document.title = 'Daybreak — ' + formatted;
+  // Dateline and <title> are baked in at render time (Monday, July 27, 2026), not set here --
+  // pages are persisted (emailed, hosted on GitHub Pages) and may be opened on a
+  // different day than the one they report on, so the visible date must stay
+  // whatever the content actually covers rather than always jumping to "today".
 
   const buttons = document.querySelectorAll('.navlist button');
   const panels = document.querySelectorAll('.panel');

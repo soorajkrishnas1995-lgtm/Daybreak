@@ -219,6 +219,15 @@
     .hero { padding: 18px 20px; }
   }
 
+  .what-moved {
+    border-top: 1px solid var(--rule); padding: 18px 34px 28px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .what-moved .label {
+    text-transform: uppercase; letter-spacing: 0.1em; font-size: 9.5px; opacity: 0.75; margin-bottom: 4px;
+  }
+
   ::selection { background: var(--amber-bg); }
 </style>
 </head>
@@ -651,6 +660,13 @@
 
   </main>
 </div>
+
+
+<div class="what-moved">
+  <div class="label">What moved since last edition</div>
+  <div>Promoted: France &amp; Spain wildfires &rarr; Breaking (Global lead) &mdash; still uncontained, Spain's first fire death recorded. Demoted: Berlin Pride van attack &rarr; World "Also today" (was Breaking) &mdash; manhunt concluded, no new development.</div>
+</div>
+
 
 <script>
   // Dateline and <title> are baked in at render time (Monday, July 27, 2026), not set here --

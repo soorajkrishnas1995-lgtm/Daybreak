@@ -20,8 +20,9 @@
     --plum: #6A4A6E; --plum-bg: #EDE3EE;
     --teal: #206862; --teal-bg: #DFEBE8;
     --coral: #A85040; --coral-bg: #F3E1DB;
+    --brass: #8A6D2E; --brass-bg: #EFE6D3;
     --rule: rgba(35,38,43,0.13);
-    --spectrum: linear-gradient(90deg, var(--amber), var(--rust) 22%, var(--forest) 38%, var(--steel) 52%, var(--plum) 66%, var(--teal) 82%, var(--coral));
+    --spectrum: linear-gradient(90deg, var(--amber), var(--rust) 14%, var(--forest) 29%, var(--steel) 43%, var(--plum) 57%, var(--teal) 71%, var(--coral) 86%, var(--brass));
   }
   * { box-sizing: border-box; }
   body {
@@ -83,6 +84,7 @@
   .navlist li[data-cat="world"] .dot { background: var(--plum); }
   .navlist li[data-cat="tech"] .dot { background: var(--teal); }
   .navlist li[data-cat="science"] .dot { background: var(--coral); }
+  .navlist li[data-cat="brand"] .dot { background: var(--brass); }
 
   /* MAIN */
   .main { flex: 1; min-width: 0; padding: 28px 34px 60px; }
@@ -103,6 +105,7 @@
   #panel-world     { --panel-accent: var(--plum); }
   #panel-tech      { --panel-accent: var(--teal); }
   #panel-science   { --panel-accent: var(--coral); }
+  #panel-brand     { --panel-accent: var(--brass); }
 
   /* Navy hero — used for the LEAD story in every category */
   .hero {
@@ -115,10 +118,17 @@
   }
   .hero .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, var(--amber)); margin-bottom: 12px; }
   .hero .eyebrow .dt { width: 7px; height: 7px; border-radius: 50%; background: var(--accent, var(--amber)); }
-  .hero h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(21px, 2.6vw, 27px); line-height: 1.2; margin: 0 0 10px; max-width: 640px; }
+  .hero h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(21px, 2.6vw, 27px); line-height: 1.2; margin: 0 0 10px; max-width: 660px; }
   .hero a.headline:hover h3 { text-decoration: underline; text-decoration-color: var(--accent, var(--amber)); text-underline-offset: 4px; }
-  .hero p { font-size: 14px; line-height: 1.6; color: rgba(250,246,239,0.85); max-width: 620px; margin: 0 0 10px; }
+  .hero p { font-size: 14px; line-height: 1.55; color: rgba(250,246,239,0.85); max-width: 660px; margin: 0 0 10px; }
   .hero .src { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: rgba(250,246,239,0.55); }
+
+  /* Lead-story image — hotlinked to the source's own preview image, never
+     rehosted; used inside .hero / .hero-card / .hero-feature .content */
+  .lead-img { margin: 0 0 14px; }
+  .lead-img img { width: 100%; max-height: 220px; object-fit: cover; border-radius: 6px; display: block; }
+  .lead-img .cap { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: rgba(250,246,239,0.5); margin-top: 5px; }
+  .hero-card .lead-img img { max-height: 130px; }
 
   /* category accent colors for hero glow/eyebrow */
   #panel-politics .hero { --accent: var(--rust); --accent-glow: rgba(168,80,47,0.35); }
@@ -127,6 +137,7 @@
   #panel-world .hero    { --accent: var(--plum);  --accent-glow: rgba(106,74,110,0.35); }
   #panel-tech .hero     { --accent: var(--teal);  --accent-glow: rgba(32,104,98,0.35); }
   #panel-science .hero  { --accent: var(--coral); --accent-glow: rgba(168,80,64,0.35); }
+  #panel-brand .hero    { --accent: var(--brass); --accent-glow: rgba(138,109,46,0.35); }
 
   /* FEATURE PANEL — full-pane treatment for Breaking / Top Story */
   .feature-panel { display: flex; flex-direction: column; min-height: calc(100vh - 150px); }
@@ -145,8 +156,9 @@
   .hero-feature .eyebrow .dt { width: 7px; height: 7px; border-radius: 50%; background: var(--accent, var(--amber)); }
   .hero-feature h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(24px, 3vw, 32px); line-height: 1.18; margin: 0 0 14px; }
   .hero-feature a.headline:hover h3 { text-decoration: underline; text-decoration-color: var(--accent, var(--amber)); text-underline-offset: 4px; }
-  .hero-feature p { font-size: 15px; line-height: 1.65; color: rgba(250,246,239,0.85); margin: 0 0 12px; }
+  .hero-feature p { font-size: 14.5px; line-height: 1.6; color: rgba(250,246,239,0.85); margin: 0 0 12px; }
   .hero-feature .src { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(250,246,239,0.55); }
+  .hero-feature .lead-img img { max-height: 260px; }
 
   /* Calmer "Top Story" mode — used when nothing clears the Breaking bar */
   .feature-panel.calm .hero-feature { --accent: #9AA3B2; }
@@ -154,8 +166,12 @@
 
   .also-today-wrap { flex: 1; margin-top: 26px; }
   .also-today-wrap .section-label { margin-bottom: 10px; }
-  .also-today-wrap .story-list { column-count: 2; column-gap: 32px; }
-  .also-today-wrap .story { break-inside: avoid; }
+  /* Row-flowing grid, not CSS column-count: column-count "balances" total
+     height across columns, which left a dangling gap under a short item
+     whenever its column's sibling ran longer. A grid lays items out
+     left-to-right/row-by-row instead, so each row's height is just
+     whatever that row needs. */
+  .also-today-wrap .story-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
 
   /* Dual hero — India + Global, both cleared the Breaking bar */
   .dual-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 0 0 auto; }
@@ -172,7 +188,7 @@
   .hero-card .eyebrow .dt { width: 6px; height: 6px; border-radius: 50%; background: var(--accent, var(--amber)); }
   .hero-card h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(18px, 1.9vw, 22px); line-height: 1.22; margin: 0 0 10px; }
   .hero-card a.headline:hover h3 { text-decoration: underline; text-decoration-color: var(--accent, var(--amber)); text-underline-offset: 4px; }
-  .hero-card p { font-size: 13.3px; line-height: 1.58; color: rgba(250,246,239,0.85); margin: 0 0 10px; flex: 1; }
+  .hero-card p { font-size: 12.8px; line-height: 1.5; color: rgba(250,246,239,0.85); margin: 0 0 10px; flex: 1; }
   .hero-card .src { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: rgba(250,246,239,0.55); }
   .hero-card.india { --accent: #C7852E; }
   .hero-card.global { --accent: #2F5578; }
@@ -185,7 +201,7 @@
     .hero-feature { grid-template-columns: 1fr; }
     .hero-feature .art { padding: 18px; }
     .hero-feature .art svg { max-width: 140px; }
-    .also-today-wrap .story-list { column-count: 1; }
+    .also-today-wrap .story-list { grid-template-columns: 1fr; }
   }
 
   .section-label {
@@ -198,7 +214,7 @@
   .story:last-child { border-bottom: none; }
   .story a.headline:hover h4 { text-decoration: underline; text-underline-offset: 3px; }
   .story h4 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 16px; line-height: 1.3; margin: 0 0 4px; }
-  .story p { font-size: 13.3px; line-height: 1.55; color: var(--ink-soft); margin: 0 0 4px; }
+  .story p { font-size: 13px; line-height: 1.5; color: var(--ink-soft); margin: 0 0 4px; }
   .story .src { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #8a8b8f; }
 
   /* Mobile: sidebar becomes a top tab bar */
@@ -263,6 +279,7 @@
       <li data-cat="world"><button data-target="world"><span class="dot"></span><span class="lbl">World</span><span class="n">05</span></button></li>
       <li data-cat="tech"><button data-target="tech"><span class="dot"></span><span class="lbl">Technology</span><span class="n">06</span></button></li>
       <li data-cat="science"><button data-target="science"><span class="dot"></span><span class="lbl">Science &amp; Health</span><span class="n">07</span></button></li>
+      <li data-cat="brand"><button data-target="brand"><span class="dot"></span><span class="lbl">Brand Watch</span><span class="n">08</span></button></li>
     </ul>
   </nav>
 
@@ -279,11 +296,12 @@
         <div class="hero-feature">
           <div class="art"></div>
           <div class="content">
-            <div class="eyebrow"><span class="dt"></span>Iran War</div>
+            <div class="lead-img"><img src="https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1233269986.jpg?c=16x9&q=w_800,c_fill" alt="" loading="lazy"><span class="cap">Image: CNN</span></div>
+<div class="eyebrow"><span class="dt"></span>Iran War</div>
             <a class="headline" href="https://www.cnn.com/2026/07/30/world/live-news/iran-war-trump" target="_blank" rel="noopener">
-              <h3>US strike kills family on Qeshm Island; Iran hits back at US bases in Kuwait, Jordan and Bahrain as Saudi Arabia joins the fight</h3>
+              <h3>US strike kills family on Qeshm Island; Iran retaliates against US bases in Kuwait, Jordan and Bahrain</h3>
             </a>
-            <p>CENTCOM carried out a strike wave on dozens of IRGC sites inside Iran roughly double the size of its prior bombardment; one strike hit a residential building on Qeshm Island, killing a mother, father and their 2-year-old child and injuring two more children. Iran's IRGC retaliated with strikes on US bases in Kuwait, Jordan and Bahrain that killed a worker, Saudi Arabia joined US strikes on Iran-linked sites for the first time and is forming a 14-country Gulf naval coalition, and the US Senate again narrowly rejected a war-powers resolution to limit the strikes.</p>
+            <p>CENTCOM carried out its largest strike wave yet on IRGC sites inside Iran, roughly double the size of the previous bombardment, hitting command centers, missile facilities and coastal defenses. One strike hit a residential building on Qeshm Island, killing a mother, father and their two-year-old child and injuring two more children. Iran's IRGC retaliated with strikes on US bases in Kuwait, Jordan and Bahrain that killed a worker, while Saudi Arabia joined US strikes on Iran-linked sites for the first time and is forming a 14-country Gulf naval coalition. The US Senate rejected a war-powers resolution to limit the strikes.</p>
             <div class="src">CNN</div>
           </div>
         </div>
@@ -295,25 +313,25 @@
             
         <div class="story">
           <a class="headline" href="https://www.npr.org/2026/07/30/nx-s1-5913050/japan-earthquake-updates" target="_blank" rel="noopener">
-            <h4>Japan earthquake death toll climbs to 34 as rescue window closes in Kyushu</h4>
+            <h4>Japan earthquake death toll climbs to 34 as Kyushu rescue window closes</h4>
           </a>
-          <p>The magnitude-7.1 quake that struck Kumamoto on July 28 triggered a shopping-mall structural collapse in Kashima and a factory chimney collapse in Yatsushiro, with roughly 260,000 people evacuated and rescuers racing against time.</p>
+          <p>The magnitude-7.1 quake that struck Kumamoto on July 28 triggered a shopping-mall structural collapse in Kashima and a factory chimney collapse in Yatsushiro. Roughly 260,000 people have been evacuated, and rescuers are racing against a closing window to reach anyone still trapped in the rubble across the affected Kyushu region.</p>
           <div class="src">NPR · World</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.aljazeera.com/news/2026/7/30/congos-ebola-death-toll-passes-1500-as-it-struggles-to-halt-spread" target="_blank" rel="noopener">
-            <h4>DR Congo's Ebola death toll passes 1,500 in the fastest-spreading outbreak on record</h4>
+            <h4>DR Congo's Ebola death toll passes 1,500 in fastest-spreading outbreak on record</h4>
           </a>
-          <p>Government figures show 3,442 confirmed cases and 1,521 deaths from the Bundibugyo strain, for which no vaccine or approved treatment exists, as authorities struggle to halt the spread.</p>
+          <p>Government figures show 3,442 confirmed cases and 1,521 deaths from the Bundibugyo strain of Ebola, for which no vaccine or approved treatment currently exists. Authorities are struggling to halt the spread, and health officials describe it as the fastest-moving Ebola outbreak ever recorded in the country's history, with case numbers still climbing daily.</p>
           <div class="src">Al Jazeera · World</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.npr.org/2026/07/30/g-s1-136276/russia-ukraine-war" target="_blank" rel="noopener">
-            <h4>Russia's largest missile barrage in months kills civilians and sends a missile into Polish airspace</h4>
+            <h4>Russia's largest missile barrage in months kills civilians, sends missile into Polish airspace</h4>
           </a>
-          <p>More than 70 missiles and 280 drones hit Ukraine overnight, killing at least 8-10 civilians, while a Russian missile crossed into eastern Poland, prompting Warsaw to scramble fighter jets and raise its air-defense alert.</p>
+          <p>More than 70 missiles and 280 drones hit Ukraine overnight, killing at least eight to ten civilians in the latest wave of strikes. A Russian missile crossed into eastern Poland during the barrage, prompting Warsaw to scramble fighter jets and raise its national air-defense alert level, with NATO monitoring the situation closely.</p>
           <div class="src">NPR · World</div>
         </div>
           </div>
@@ -325,11 +343,12 @@
     <section class="panel" id="panel-politics">
       <div class="panel-head"><span class="swatch" style="background:var(--rust)"></span><h2>Politics</h2><span class="sub">India</span></div>
       <div class="hero">
-        <div class="eyebrow"><span class="dt"></span>Bihar</div>
+        <div class="lead-img"><img src="https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2026/07/bihar-neet-paper-leak-protest-1785168920.jpg" alt="" loading="lazy"><span class="cap">Image: India TV News</span></div>
+<div class="eyebrow"><span class="dt"></span>Bihar</div>
             <a class="headline" href="https://www.indiatvnews.com/bihar/news-bihar-government-withdraws-firs-releases-detainees-arrested-over-neet-paper-leak-protest-2026-07-27-1049567" target="_blank" rel="noopener">
-              <h3>Bihar Bandh over NEET paper-leak protests turns violent, with student-police clashes in five towns</h3>
+              <h3>Bihar Bandh over NEET paper-leak protests turns violent as students and police clash in five towns</h3>
             </a>
-            <p>An AISA-led shutdown protesting the NEET-UG paper leak saw stone-pelting and lathi-charges between students and police across Patna, Saran, Siwan, Aurangabad and Bhagalpur; no deaths were confirmed. It follows Bihar's withdrawal of all protest-related FIRs, effective July 26, and comes as the Supreme Court's next hearing on the crisis sits two months away.</p>
+            <p>An AISA-led shutdown protesting the NEET-UG paper leak saw stone-pelting and lathi-charges between students and police across Patna, Saran, Siwan, Aurangabad and Bhagalpur, though no deaths were confirmed. The unrest follows Bihar's withdrawal of all protest-related FIRs, effective July 26, and comes as the Supreme Court's next hearing on the broader crisis sits roughly two months away, suggesting the judicial track is going quiet even as street-level tension escalates. Other states, including Assam and Maharashtra, have also withdrawn cases and released detained protesters in recent days.</p>
             <div class="src">India TV News</div>
       </div>
       <div class="section-label">Also today</div>
@@ -339,39 +358,39 @@
           <a class="headline" href="https://www.aninews.in/news/world/asia/misris-china-visit-focused-on-advancing-bilateral-ties-trade-people-to-people-exchanges-border-peace-mea20260728183401/" target="_blank" rel="noopener">
             <h4>India and China to resume border trade Aug 1 after six-year freeze</h4>
           </a>
-          <p>Foreign Secretary Vikram Misri's Beijing visit paved the way for India and China to reopen border trade through the Nathu La, Lipulekh and Shipki La passes, ending a pandemic- and LAC-standoff-linked suspension.</p>
+          <p>Foreign Secretary Vikram Misri's visit to Beijing paved the way for India and China to reopen border trade through the Nathu La, Lipulekh and Shipki La passes, ending a suspension linked to the pandemic and the years-long standoff along the Line of Actual Control, a rare thaw in the broader relationship.</p>
           <div class="src">ANI</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://aninews.in/news/world/asia/india-takes-dig-at-pakistan-says-everyone-in-south-asia-is-aware-which-country-is-stymying-saarc20260729023143/" target="_blank" rel="noopener">
-            <h4>India says Pakistan is 'stymying SAARC' amid renewed diplomatic sparring</h4>
+            <h4>India says Pakistan is 'stymying SAARC' amid renewed South Asian diplomatic sparring</h4>
           </a>
-          <p>New Delhi said the region is well aware which country is obstructing the regional bloc, as India-Pakistan diplomatic tensions continued to play out across South Asian forums.</p>
+          <p>New Delhi said the entire region is well aware which country is obstructing the regional bloc's functioning, as diplomatic tensions between India and Pakistan continued to play out across South Asian forums and multilateral platforms, with no sign of a fresh thaw between the two neighbors anytime soon amid the broader chill.</p>
           <div class="src">ANI</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2196502&reg=3&lang=2" target="_blank" rel="noopener">
-            <h4>Election Commission extends Special Intensive Revision of electoral rolls by a week</h4>
+            <h4>Election Commission extends electoral roll revision deadline by a week</h4>
           </a>
-          <p>The EC pushed back deadlines in its ongoing revision of electoral rolls across several states and union territories, citing operational needs ahead of the exercise's qualifying date.</p>
+          <p>The EC pushed back deadlines in its ongoing Special Intensive Revision of electoral rolls across several states and union territories, citing operational needs ahead of the exercise's qualifying date. The revision affects states including Punjab, Karnataka, Telangana and Delhi, and could shift timelines for their electoral calendars ahead of next year's polls.</p>
           <div class="src">PIB</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.bloomberg.com/news/articles/2026-07-16/eu-india-move-to-expand-ties-beyond-landmark-free-trade-deal" target="_blank" rel="noopener">
-            <h4>India and EU to open talks on joining the bloc's €95.5bn Horizon Europe research program</h4>
+            <h4>India and EU to open talks on joining Horizon Europe research program</h4>
           </a>
-          <p>Brussels and New Delhi agreed to start formal talks on India's participation in the EU's flagship research funding program, building on January's landmark free trade agreement.</p>
+          <p>Brussels and New Delhi agreed to start formal talks on India's participation in the EU's flagship 95.5-billion-euro research funding program, building on January's landmark free trade agreement between the two sides and signaling deepening technological and scientific cooperation as both blocs look to diversify partnerships well beyond traditional trade ties.</p>
           <div class="src">Bloomberg</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.business-standard.com/amp/elections/lok-sabha-election/election-commission-one-nation-one-election-six-months-notice-126071600187_1.html" target="_blank" rel="noopener">
-            <h4>Election Commission says it can deliver 'One Nation, One Election' with six months' notice</h4>
+            <h4>Election Commission says 'One Nation, One Election' needs six months' notice</h4>
           </a>
-          <p>The joint parliamentary committee overseeing simultaneous-elections legislation is targeting a 2029 rollout, after the Lok Sabha extended the panel's term to the Winter Session.</p>
+          <p>The joint parliamentary committee overseeing simultaneous-elections legislation, chaired by P.P. Chaudhary, said it is targeting a 2029 rollout for synchronized state and national polls, after the Lok Sabha extended the panel's term through the Winter Session to allow more time for consultations with political parties nationwide before finalizing its report.</p>
           <div class="src">Business Standard</div>
         </div>
       </div>
@@ -383,9 +402,9 @@
       <div class="hero">
         <div class="eyebrow"><span class="dt"></span>Global Markets</div>
             <a class="headline" href="https://www.bloomberg.com/news/articles/2026-07-30/futures-climb-with-boost-from-microsoft-s-surging-cloud-growth" target="_blank" rel="noopener">
-              <h3>Wall Street hits fresh records as Microsoft's cloud surge lifts the S&amp;P above 7,400</h3>
+              <h3>Wall Street hits fresh records again as Microsoft's cloud surge lifts the S&amp;P above 7,400</h3>
             </a>
-            <p>Microsoft shares jumped 16% on accelerating cloud growth, adding roughly $450 billion in value in a single day, while the S&amp;P 500 closed above 7,400 for the first time and the Nasdaq gained 2.8% on a blowout batch of tech earnings.</p>
+            <p>Microsoft shares jumped 16% in a single session on accelerating cloud growth, adding roughly $450 billion in market value in one of the year's largest one-day gains for any company. The S&amp;P 500 closed above 7,400 for the first time in its history, while the Nasdaq gained 2.8% on a blowout batch of Big Tech earnings that beat Wall Street's expectations across the board. The rally came even as crude oil prices stayed elevated following this week's sharp escalation in the Iran-US war, underscoring investors' focus on corporate earnings over geopolitical risk for now.</p>
             <div class="src">Bloomberg</div>
       </div>
       <div class="section-label">Also today</div>
@@ -393,41 +412,33 @@
         
         <div class="story">
           <a class="headline" href="https://www.cnbc.com/2026/07/29/fed-rate-decision-july-2026.html" target="_blank" rel="noopener">
-            <h4>Fed holds rates steady amid a rare three-way dissent</h4>
+            <h4>Fed holds rates steady for a fifth meeting amid rare three-way dissent</h4>
           </a>
-          <p>The FOMC paused for a fifth straight meeting, holding its target range at 3.5%-3.75%, as regional presidents Hammack, Kashkari and Logan dissented in favor of tighter policy with inflation still above target.</p>
-          <div class="src">CNBC</div>
-        </div>
-
-        <div class="story">
-          <a class="headline" href="https://www.cnbc.com/2026/07/30/intercontinental-exchange-to-buy-marketaxess.html" target="_blank" rel="noopener">
-            <h4>Intercontinental Exchange to acquire MarketAxess for $5.7 billion</h4>
-          </a>
-          <p>ICE will pay $167 a share, a 33% premium, for the bond-trading platform, expanding its fixed-income business in a deal expected to close in the first half of 2027.</p>
+          <p>The Federal Reserve's rate-setting committee held its target range at 3.5% to 3.75% for a fifth consecutive meeting, even as regional presidents Beth Hammack, Neel Kashkari and Lorie Logan dissented in favor of tighter policy, arguing inflation remains too far above the Fed's 2% target to justify holding steady much longer.</p>
           <div class="src">CNBC</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.cnn.com/2026/07/23/economy/trump-new-tariffs" target="_blank" rel="noopener">
-            <h4>Trump imposes new tariffs on 60 trading partners, including India, over forced-labor claims</h4>
+            <h4>Trump imposes new tariffs on 60 trading partners including India over forced-labor claims</h4>
           </a>
-          <p>New duties of 10%-12.5% replaced expiring blanket tariffs and now cover 99.4% of US imports; affected trading partners rejected the forced-labor justification but mostly signaled continued negotiation.</p>
+          <p>New duties of 10% to 12.5% replaced a set of expiring blanket tariffs and now cover roughly 99.4% of all US imports. Affected trading partners, including India, rejected the administration's forced-labor justification for the move but mostly signaled they would continue negotiating rather than immediately retaliate with counter-tariffs of their own.</p>
           <div class="src">CNN</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.business-standard.com/markets/capital-market-news/gift-nifty-suggests-green-opening-for-equities-126073100168_1.html" target="_blank" rel="noopener">
-            <h4>Indian equities open higher as foreign investors buy for a third straight session</h4>
+            <h4>Indian equities open higher as foreign investors buy for a third session</h4>
           </a>
-          <p>The Sensex and Nifty edged up in early trade on positive global cues and easing crude prices, with GIFT Nifty signaling a green opening.</p>
+          <p>The Sensex and Nifty edged up in early trade on positive global cues and easing crude oil prices, with GIFT Nifty futures signaling a green opening even as global markets digested the Federal Reserve's decision and a fresh escalation in the Middle East conflict overnight, with IT and banking stocks leading the early gains across the broader market.</p>
           <div class="src">Business Standard</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.imf.org/en/publications/weo/issues/2026/07/08/world-economic-outlook-update-july-2026" target="_blank" rel="noopener">
-            <h4>IMF projects 3.0% global growth for 2026 as disinflation stalls</h4>
+            <h4>IMF projects 3.0% global growth for 2026 as disinflation stalls worldwide</h4>
           </a>
-          <p>The Fund's July World Economic Outlook update says AI-driven demand is offsetting a war-related drag on energy importers, with risks now more balanced than in April.</p>
+          <p>The Fund's July World Economic Outlook update said AI-driven investment demand is offsetting a war-related drag on energy-importing economies, with risks now described as more balanced than they appeared in April's outlook, even as progress on bringing inflation back to target levels has essentially stalled in many major economies, according to the report's authors.</p>
           <div class="src">IMF</div>
         </div>
       </div>
@@ -439,9 +450,9 @@
       <div class="hero">
         <div class="eyebrow"><span class="dt"></span>Glasgow - Javelin</div>
             <a class="headline" href="https://www.olympics.com/en/news/commonwealth-games-2026-javelin-throw-qualifier-report-neeraj-chopra" target="_blank" rel="noopener">
-              <h3>Neeraj Chopra tops javelin qualifying, sets up Commonwealth Games final against Arshad Nadeem</h3>
+              <h3>Neeraj Chopra tops javelin qualifying, setting up a marquee Commonwealth Games final against Arshad Nadeem</h3>
             </a>
-            <p>Chopra qualified for the men's javelin final with a throw of 79.61m, edging Pakistan's Arshad Nadeem (78.63m), setting up the marquee India-Pakistan rivalry final at Scotstoun Stadium.</p>
+            <p>Chopra qualified for the men's javelin final with a throw of 79.61 meters, edging Pakistan's Arshad Nadeem, who threw 78.63 meters in the same qualifying round at Scotstoun Stadium in Glasgow. The result sets up a rematch of one of athletics' most closely watched rivalries, with both throwers among the best in the world over the past several seasons. The final takes place on August 1, and will be closely followed on both sides of the India-Pakistan border given the two athletes' long-running, good-natured competitive history at global championships.</p>
             <div class="src">Olympics.com</div>
       </div>
       <div class="section-label">Also today</div>
@@ -449,25 +460,25 @@
         
         <div class="story">
           <a class="headline" href="https://www.aljazeera.com/sports/2026/7/30/south-africas-le-clos-breaks-commonwealth-games-medal-record" target="_blank" rel="noopener">
-            <h4>Chad le Clos becomes the most decorated Commonwealth Games athlete in history</h4>
+            <h4>Chad le Clos becomes most decorated Commonwealth Games athlete in history</h4>
           </a>
-          <p>The South African swimmer won his 21st Commonwealth medal, a bronze in the 4x100m medley relay, surpassing Emma McKeon's record across five Games editions since 2010.</p>
+          <p>The South African swimmer won his 21st Commonwealth medal, a bronze in the 4x100m medley relay, surpassing Emma McKeon's record for the most medals won across five consecutive Commonwealth Games editions dating back to 2010 in Delhi. Le Clos, now 34, said he has no immediate plans to retire and hopes to compete again at the next Games in 2030.</p>
           <div class="src">Al Jazeera</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.glasgow2026.com/news/4550199/indias-dilip-mahadu-gavit-smashes-mens-100m-t47-final-setting-new-games-record" target="_blank" rel="noopener">
-            <h4>India's Dilip Mahadu Gavit wins Para-athletics 100m T47 gold with a Games record, and a historic 1-2</h4>
+            <h4>India's Dilip Gavit wins historic Para-athletics gold with a Games record</h4>
           </a>
-          <p>Gavit clocked 10.71s to become the first Indian male Para-athlete to win a Commonwealth Games gold, with compatriot Mohammed Basil Morssinganakath taking silver.</p>
+          <p>Gavit clocked 10.71 seconds to become the first Indian male Para-athlete to win a Commonwealth Games gold medal in the men's 100m T47 final, with compatriot Mohammed Basil Morssinganakath completing a historic Indian one-two by taking silver in the same race. The result marks a breakthrough moment for India's Para-athletics program heading into next year's major championships.</p>
           <div class="src">Glasgow 2026</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.olympics.com/en/news/commonwealth-games-2026-adaejah-hodge-breaks-200m-games-record-in-the-semi-finals" target="_blank" rel="noopener">
-            <h4>Adaejah Hodge breaks the women's 200m Games record in the semi-finals</h4>
+            <h4>Adaejah Hodge breaks the women's 200m Commonwealth Games record in semis</h4>
           </a>
-          <p>The 20-year-old British Virgin Islands sprinter ran 22.01s, breaking Elaine Thompson-Herah's 2022 Games record, and heads into today's final as the favorite.</p>
+          <p>The 20-year-old sprinter from the British Virgin Islands ran 22.01 seconds in her semi-final, breaking Elaine Thompson-Herah's 2022 Games record, and now heads into today's final as the clear favorite to take gold in the event. Hodge has been steadily improving her personal best all season and is also entered in the 100m sprint later in the Games.</p>
           <div class="src">Olympics.com</div>
         </div>
 
@@ -475,15 +486,15 @@
           <a class="headline" href="https://www.glasgow2026.com/news/4549588/highlights-from-day-6-of-the-commonwealth-games-at-glasgow-2026" target="_blank" rel="noopener">
             <h4>Nigeria's Goodness Nwachukwu smashes her own F42 discus world record for gold</h4>
           </a>
-          <p>Nwachukwu threw 39.66m, improving her own world record by more than three metres, successfully defending her Birmingham 2022 title.</p>
+          <p>Nwachukwu threw 39.66 meters to improve her own world record by more than three meters, successfully defending the F42 discus title she first won at the Birmingham 2022 Commonwealth Games four years earlier. Her winning throw landed more than four meters ahead of the silver medallist, underscoring her continued dominance in the F42 discus event worldwide.</p>
           <div class="src">Glasgow 2026</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.olympics.com/en/news/commonwealth-games-2026-india-schedule-today-july-31-friday" target="_blank" rel="noopener">
-            <h4>India's boxers guarantee best-ever CWG campaign as Lovlina Borgohain chases a maiden gold</h4>
+            <h4>India's boxers guarantee best-ever Commonwealth Games campaign with ten into semifinals</h4>
           </a>
-          <p>All ten Indian boxers at the Games are guaranteed at least a bronze medal, with Olympic bronze medallist Lovlina Borgohain facing Tuvalu's Tarona Taafaki for a place in the final.</p>
+          <p>All ten Indian boxers competing at the Games are now guaranteed at least a bronze medal, with Olympic bronze medallist Lovlina Borgohain facing Tuvalu's Tarona Taafaki on Friday for a place in the final and a shot at a maiden Commonwealth gold. India's boxing contingent has now matched its best-ever showing at a single Commonwealth Games edition.</p>
           <div class="src">Olympics.com</div>
         </div>
       </div>
@@ -493,11 +504,12 @@
     <section class="panel" id="panel-world">
       <div class="panel-head"><span class="swatch" style="background:var(--plum)"></span><h2>World</h2><span class="sub">Global</span></div>
       <div class="hero">
-        <div class="eyebrow"><span class="dt"></span>Iran War</div>
+        <div class="lead-img"><img src="https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-1233269986.jpg?c=16x9&q=w_800,c_fill" alt="" loading="lazy"><span class="cap">Image: CNN</span></div>
+<div class="eyebrow"><span class="dt"></span>Iran War</div>
             <a class="headline" href="https://www.cnn.com/2026/07/30/world/live-news/iran-war-trump" target="_blank" rel="noopener">
-              <h3>Iran war widens as Gulf states join US strikes and the Senate again rejects limits on Trump's war powers</h3>
+              <h3>Iran's war with the US widens as Gulf states join the strikes and Senate again rejects limits</h3>
             </a>
-            <p>A US strike on Qeshm Island killed a family of three, Iran retaliated against US bases in Kuwait, Jordan and Bahrain, and Saudi Arabia joined the American bombing campaign for the first time while forming a 14-country Gulf naval coalition -- even as the US Senate narrowly voted down a resolution to limit the strikes.</p>
+            <p>A US strike on Qeshm Island killed a family of three and wounded two more children, while Iran's retaliatory strikes on US bases in Kuwait, Jordan and Bahrain killed a worker. Saudi Arabia joined the American bombing campaign against Iran-linked targets for the first time and is now assembling a 14-country Gulf naval coalition to protect regional shipping lanes. Even as the conflict widened further, the US Senate narrowly voted down a resolution that would have limited the administration's authority to continue the strikes without new Congressional approval.</p>
             <div class="src">CNN</div>
       </div>
       <div class="section-label">Also today</div>
@@ -505,41 +517,41 @@
         
         <div class="story">
           <a class="headline" href="https://www.npr.org/2026/07/30/nx-s1-5913050/japan-earthquake-updates" target="_blank" rel="noopener">
-            <h4>Japan earthquake death toll climbs to 34 as rescue window closes in Kyushu</h4>
+            <h4>Japan earthquake death toll climbs to 34 as Kyushu rescue window closes</h4>
           </a>
-          <p>The magnitude-7.1 quake that struck Kumamoto on July 28 triggered a shopping-mall structural collapse in Kashima and a factory chimney collapse in Yatsushiro, with roughly 260,000 people evacuated.</p>
+          <p>The magnitude-7.1 quake that struck Kumamoto on July 28 triggered a shopping-mall structural collapse in Kashima and a factory chimney collapse in Yatsushiro, with roughly 260,000 people evacuated and rescuers now racing against a closing window to reach anyone still trapped. Japan's government has declared a major disaster and deployed additional military and rescue personnel to the affected region.</p>
           <div class="src">NPR</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.npr.org/2026/07/30/g-s1-136276/russia-ukraine-war" target="_blank" rel="noopener">
-            <h4>Russia's largest missile barrage in months kills civilians and sends a missile into Polish airspace</h4>
+            <h4>Russia's largest missile barrage in months kills civilians, sends missile into Poland</h4>
           </a>
-          <p>More than 70 missiles and 280 drones hit Ukraine overnight, killing at least 8-10 civilians, while a Russian missile crossed into eastern Poland, prompting Warsaw to scramble fighter jets.</p>
+          <p>More than 70 missiles and 280 drones hit Ukraine overnight, killing at least eight to ten civilians, while a Russian missile crossed into eastern Poland during the barrage, prompting Warsaw to scramble fighter jets and raise its national air-defense alert level. NATO allies condemned the incursion and said they were closely monitoring the situation along the alliance's eastern border.</p>
           <div class="src">NPR</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.aljazeera.com/news/2026/7/30/congos-ebola-death-toll-passes-1500-as-it-struggles-to-halt-spread" target="_blank" rel="noopener">
-            <h4>DR Congo's Ebola death toll passes 1,500 in the fastest-spreading outbreak on record</h4>
+            <h4>DR Congo's Ebola death toll passes 1,500 in fastest-spreading outbreak on record</h4>
           </a>
-          <p>Government figures show 3,442 confirmed cases and 1,521 deaths from the Bundibugyo strain, for which no vaccine or approved treatment exists.</p>
+          <p>Government figures show 3,442 confirmed cases and 1,521 deaths from the Bundibugyo strain of Ebola, for which no vaccine or approved treatment exists, as authorities struggle to halt the spread of the fastest-moving outbreak on record. International health agencies are rushing additional resources and personnel to the affected region to help contain the crisis.</p>
           <div class="src">Al Jazeera</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.washingtonpost.com/world/2026/07/28/peru-keiko-fujimori-inauguration/f6627c8a-8aa9-11f1-8912-d71e69d679d7_story.html" target="_blank" rel="noopener">
-            <h4>Keiko Fujimori sworn in as Peru's president amid contested-election protests in Lima</h4>
+            <h4>Keiko Fujimori sworn in as Peru's president amid contested-election protests</h4>
           </a>
-          <p>Fujimori becomes Peru's ninth president in a decade and its first woman elected to the office by popular vote, after left-wing rival Roberto Sánchez alleged irregularities in a narrow race.</p>
+          <p>Fujimori becomes Peru's ninth president in a decade and the first woman elected to the office by popular vote, after left-wing rival Roberto Sánchez alleged irregularities in a narrow race that triggered protests in Lima around her inauguration. Her government faces immediate pressure to address economic stagnation and defuse the disputed election result peacefully.</p>
           <div class="src">The Washington Post</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.cnn.com/2026/07/29/world/live-news/france-spain-wildfires-heat-wave" target="_blank" rel="noopener">
-            <h4>France &amp; Spain wildfires ease as a forecast heat wave arrives without reigniting the fires</h4>
+            <h4>France and Spain's wildfires ease as forecast heat wave arrives without reigniting them</h4>
           </a>
-          <p>The Bordeaux-area perimeter held through the heat wave's arrival and evacuees are returning home, while Spain downgraded its emergency level near Madrid -- though about ten other Spanish blazes, including one at Castellón, remain uncontained.</p>
+          <p>The Bordeaux-area fire perimeter held steady through the heat wave's arrival and evacuees are being allowed to return home in growing numbers, while Spain downgraded its emergency level near Madrid, though roughly ten other Spanish blazes remain uncontained. Officials in both countries say the immediate danger is easing but warn the fire season is far from over.</p>
           <div class="src">CNN</div>
         </div>
       </div>
@@ -549,11 +561,12 @@
     <section class="panel" id="panel-tech">
       <div class="panel-head"><span class="swatch" style="background:var(--teal)"></span><h2>Technology</h2><span class="sub">AI &amp; Industry</span></div>
       <div class="hero">
-        <div class="eyebrow"><span class="dt"></span>AI Security</div>
+        <div class="lead-img"><img src="https://image.cnbcfm.com/api/v1/image/108317416-1780669969197-gettyimages-2279256400-jung-nvidiace260605_nprgq.jpeg?v=1780670112&w=1920&h=1080" alt="" loading="lazy"><span class="cap">Image: CNBC</span></div>
+<div class="eyebrow"><span class="dt"></span>AI Security</div>
             <a class="headline" href="https://www.cnbc.com/2026/07/27/nvidia-ai-initiative-openai-cyber-attack.html" target="_blank" rel="noopener">
-              <h3>Nvidia, Microsoft and SpaceX launch an 'Open Secure AI Alliance' after an OpenAI-linked cyberattack</h3>
+              <h3>Nvidia, Microsoft and SpaceX launch an 'Open Secure AI Alliance' after a major OpenAI-linked cyberattack</h3>
             </a>
-            <p>A roughly 40-member coalition including Microsoft, SpaceX, Palantir, IBM, Cisco, Cloudflare, CrowdStrike and Adobe will jointly build open-source defenses against AI-powered attacks, formed after an OpenAI model was used to breach Hugging Face's systems via a zero-day.</p>
+            <p>A roughly 40-member coalition that includes Microsoft, SpaceX, Palantir, IBM, Cisco, Cloudflare, CrowdStrike and Adobe will jointly build open-source defenses against AI-powered cyberattacks. The alliance was formed after an OpenAI model was reportedly used to breach Hugging Face's systems through a previously unknown zero-day vulnerability, raising fresh alarm across the industry about how quickly AI tools can be weaponized for offensive hacking. Member companies say they will share threat intelligence and jointly fund research into detecting and blocking AI-driven attacks before they can cause similar damage elsewhere.</p>
             <div class="src">CNBC</div>
       </div>
       <div class="section-label">Also today</div>
@@ -561,17 +574,17 @@
         
         <div class="story">
           <a class="headline" href="https://www.bloomberg.com/news/newsletters/2026-07-26/apple-glasses-may-debut-at-wwdc-2027-privacy-camera-features-versus-meta-ms1v7lta" target="_blank" rel="noopener">
-            <h4>Apple delays smart glasses launch to 2027 over privacy concerns</h4>
+            <h4>Apple delays its smart glasses launch to 2027 over privacy concerns</h4>
           </a>
-          <p>Apple's camera-equipped smart glasses, originally slated for late 2026, are being pushed to a 2027 reveal while teams build in on-device processing and other privacy safeguards to avoid a Meta-style backlash.</p>
+          <p>Apple's camera-equipped smart glasses, originally slated for a late-2026 launch, are being pushed back to a 2027 reveal while engineering teams build in on-device processing and other privacy safeguards intended to avoid a Meta-style public backlash over surveillance concerns. The delay reflects growing industry caution around wearable cameras after repeated controversies over covert recording in public spaces.</p>
           <div class="src">Bloomberg</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://indianexpress.com/article/business/cabinet-semiconductor-mission-2-0-10787705/" target="_blank" rel="noopener">
-            <h4>India's Cabinet approves Semiconductor Mission 2.0 worth ₹1.27 lakh crore</h4>
+            <h4>India's Cabinet approves ₹1.27-lakh-crore expansion of its Semiconductor Mission 2.0 program</h4>
           </a>
-          <p>The six-year expansion of India's chip strategy moves beyond fabrication into design, packaging, materials and R&amp;D, aimed at building a full domestic semiconductor ecosystem.</p>
+          <p>The six-year expansion of India's chip strategy moves beyond fabrication into design, packaging, materials and research and development, aimed at building a complete domestic semiconductor ecosystem rather than relying on isolated manufacturing incentives alone. The government says the expanded mission will also support startups and research institutions working on chip design and advanced packaging.</p>
           <div class="src">The Indian Express</div>
         </div>
 
@@ -579,7 +592,7 @@
           <a class="headline" href="https://www.cnbc.com/2026/07/13/chinese-humanoid-startups-ipo-limx-unitree.html" target="_blank" rel="noopener">
             <h4>Chinese humanoid-robot startups rush toward IPOs amid a deployment race</h4>
           </a>
-          <p>LimX Dynamics closed a $200 million pre-IPO round at a roughly $2.2 billion valuation and Unitree is nearing a Shanghai listing, as Chinese makers push thousands of humanoids into factories and logistics hubs.</p>
+          <p>LimX Dynamics closed a $200 million pre-IPO funding round at a roughly $2.2 billion valuation, and Unitree is nearing a Shanghai stock listing, as Chinese manufacturers push thousands of humanoid robots into factories and logistics hubs to gather training data. The rapid deployment race is also intensifying competition with US and Japanese robotics firms racing to scale similar technology.</p>
           <div class="src">CNBC</div>
         </div>
 
@@ -587,7 +600,7 @@
           <a class="headline" href="https://www.business-standard.com/companies/start-ups/yotta-raises-150-mn-at-37-000-crore-valuation-to-fund-ai-expansion-126070500709_1.html" target="_blank" rel="noopener">
             <h4>Noida's Yotta Data Services builds a 20,000-GPU AI supercluster for India</h4>
           </a>
-          <p>The data-center firm raised $150 million and is deploying a $2 billion, 20,736-GPU Nvidia Blackwell Ultra cluster, committing over 10,000 GPUs to the government's IndiaAI Mission.</p>
+          <p>The data-center firm raised $150 million and is deploying a $2 billion, 20,736-GPU Nvidia Blackwell Ultra cluster, committing more than 10,000 of those GPUs to the government's IndiaAI Mission for sovereign large-language-model development. The buildout is among the largest dedicated AI compute investments announced in India to date, executives said.</p>
           <div class="src">Business Standard</div>
         </div>
       </div>
@@ -597,11 +610,12 @@
     <section class="panel" id="panel-science">
       <div class="panel-head"><span class="swatch" style="background:var(--coral)"></span><h2>Science &amp; Health</h2><span class="sub">Research</span></div>
       <div class="hero">
-        <div class="eyebrow"><span class="dt"></span>Public Health</div>
+        <div class="lead-img"><img src="https://media.cnn.com/api/v1/images/stellar/prod/c-2021-09-15t170410z-1692876596-rc2fqp9ryfiq-rtrmadp-3-usa-funds-salt.jpg?c=16x9&q=w_800,c_fill" alt="" loading="lazy"><span class="cap">Image: CNN</span></div>
+<div class="eyebrow"><span class="dt"></span>Public Health</div>
             <a class="headline" href="https://www.cnn.com/2026/07/28/health/cyclospora-central-mexico-produce" target="_blank" rel="noopener">
-              <h3>Record US cyclosporiasis outbreak tied to Mexican lettuce keeps growing</h3>
+              <h3>A record US cyclosporiasis outbreak tied to Mexican iceberg lettuce keeps growing rapidly across multiple states</h3>
             </a>
-            <p>CDC and FDA traceback points to Taylor Farms de Mexico iceberg lettuce as the source of a parasitic outbreak now near 2,000 cases with 98 hospitalizations, prompting retailers to shun central-Mexico produce broadly.</p>
+            <p>CDC and FDA traceback investigations point to Taylor Farms de Mexico iceberg lettuce as the likely source of a parasitic outbreak that has now sickened nearly 2,000 people and hospitalized 98 of them across multiple US states. The cyclospora parasite causes prolonged, watery diarrhea and can take weeks to clear without proper antibiotic treatment. Major retailers have begun shunning produce sourced from central Mexico altogether rather than risk further contamination, even as health officials continue trying to pin down exactly where in the supply chain the parasite entered the lettuce.</p>
             <div class="src">CNN</div>
       </div>
       <div class="section-label">Also today</div>
@@ -609,42 +623,99 @@
         
         <div class="story">
           <a class="headline" href="https://www.cnn.com/2026/07/24/health/us-measles-cases-record" target="_blank" rel="noopener">
-            <h4>US measles cases hit a 35-year high for the second record year running</h4>
+            <h4>US measles cases hit a 35-year high for a second record year</h4>
           </a>
-          <p>There have been 2,318 confirmed measles cases as of July 23, already surpassing all of 2025's total and the worst count since elimination was declared before 2000, with 93% of cases outbreak-associated.</p>
+          <p>There have been 2,318 confirmed measles cases in the US as of July 23, already surpassing all of 2025's total and marking the worst count since elimination was declared in the year 2000, with 93% of this year's cases linked to identifiable outbreaks. Public health officials attribute the surge largely to declining childhood vaccination rates in several states.</p>
           <div class="src">CNN</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.nature.com/articles/s41586-026-10754-7" target="_blank" rel="noopener">
-            <h4>Self-correcting silicon quantum chip cuts control errors tenfold</h4>
+            <h4>Self-correcting silicon quantum chip cuts control errors by a factor of ten</h4>
           </a>
-          <p>HRL Laboratories demonstrated an 18-qubit chip that runs its own error correction via an on-board cryogenic controller, showing roughly fivefold error suppression as qubits scale -- a step toward practical fault-tolerant quantum computing.</p>
+          <p>HRL Laboratories demonstrated an 18-qubit chip that runs its own error correction through an on-board cryogenic controller, showing roughly fivefold error suppression as the number of qubits scales up, a meaningful step toward practical, fault-tolerant quantum computing systems. Researchers say the approach could eventually reduce the number of physical qubits needed to build a useful quantum computer.</p>
           <div class="src">Nature</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.sciencedaily.com/releases/2026/07/260727214612.htm" target="_blank" rel="noopener">
-            <h4>NASA's Psyche spacecraft aces a Mars gravity-assist flyby en route to a metal-rich asteroid</h4>
+            <h4>NASA's Psyche spacecraft aces a Mars gravity-assist flyby en route to asteroid</h4>
           </a>
-          <p>The probe used Mars for a 1,000-mph speed boost while imaging craters and the polar ice cap and testing its science instruments, ahead of its 2029 arrival at the asteroid Psyche.</p>
+          <p>The probe used Mars's gravity for a 1,000-mile-per-hour speed boost while imaging the planet's craters and polar ice cap and testing its onboard science instruments, ahead of its scheduled 2029 arrival at the metal-rich asteroid Psyche. NASA scientists said all instruments performed as expected during the flyby, clearing the mission for its next phase.</p>
           <div class="src">ScienceDaily</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.sciencedaily.com/releases/2026/07/260713000809.htm" target="_blank" rel="noopener">
-            <h4>World's longest-running soil-warming experiment reveals a hidden carbon-release risk</h4>
+            <h4>World's longest-running soil-warming experiment reveals a previously hidden carbon-release risk</h4>
           </a>
-          <p>After 37 years, researchers found that warming triggers microbial breakdown of previously 'protected' stable soil carbon -- a feedback loop not yet captured in most climate models.</p>
+          <p>After 37 years of continuous monitoring, researchers found that warming triggers microbial breakdown of previously 'protected' stable soil carbon, a feedback loop that most current climate models fail to capture and that could meaningfully accelerate future warming projections. The findings suggest current climate models may be underestimating how quickly soils could release stored carbon as temperatures rise.</p>
           <div class="src">ScienceDaily</div>
         </div>
 
         <div class="story">
           <a class="headline" href="https://www.sciencedaily.com/releases/2026/06/260626030448.htm" target="_blank" rel="noopener">
-            <h4>Marine cloud brightening geoengineering could destabilize the El Niño-La Niña cycle</h4>
+            <h4>Marine cloud brightening could destabilize the El Niño-La Niña climate cycle</h4>
           </a>
-          <p>Modeling shows that brightening clouds over the eastern Pacific to fight warming could erase two-thirds of ENSO variability, a side effect researchers say argues against deploying it there.</p>
+          <p>Modeling shows that brightening clouds over the eastern Pacific Ocean to fight global warming could erase up to two-thirds of natural El Niño/La Niña variability, a side effect researchers say argues strongly against deploying the geoengineering technique in that particular region. The study adds to a growing body of research urging caution before any large-scale geoengineering deployment moves forward.</p>
           <div class="src">ScienceDaily</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRAND WATCH -->
+    <section class="panel" id="panel-brand">
+      <div class="panel-head"><span class="swatch" style="background:var(--brass)"></span><h2>Brand Watch</h2><span class="sub">Corporate &amp; Consumer</span></div>
+      <div class="hero">
+        <div class="lead-img"><img src="https://image.cnbcfm.com/api/v1/image/108342355-17854122332026-06-04t153924z_1588137036_rc23nla7apso_rtrmadp_0_usa-exchanges.jpeg?v=1785412337&w=1920&h=1080" alt="" loading="lazy"><span class="cap">Image: CNBC</span></div>
+<div class="eyebrow"><span class="dt"></span>M&A</div>
+            <a class="headline" href="https://www.cnbc.com/2026/07/30/intercontinental-exchange-to-buy-marketaxess.html" target="_blank" rel="noopener">
+              <h3>Intercontinental Exchange agrees to acquire bond-trading platform MarketAxess for $5.7 billion in its largest deal to date</h3>
+            </a>
+            <p>ICE will pay $167 a share, a 33% premium over MarketAxess's prior closing price, in a deal that expands its fixed-income trading business at a moment when bond markets are seeing rising electronic-trading volumes. The acquisition is ICE's largest to date and is expected to close in the first half of 2027, pending regulatory approval from antitrust authorities in the US and elsewhere. MarketAxess will continue operating its existing platform and brand under ICE's ownership, with the deal aimed at deepening ICE's presence in fixed-income markets alongside its existing dominance in exchanges and clearing.</p>
+            <div class="src">CNBC</div>
+      </div>
+      <div class="section-label">Also today</div>
+      <div class="story-list">
+        
+        <div class="story">
+          <a class="headline" href="https://www.bloomberg.com/news/articles/2026-07-31/couche-tard-to-acquire-stake-in-poland-s-zabka-for-8-7-billion" target="_blank" rel="noopener">
+            <h4>Couche-Tard to acquire Poland's Żabka Group in an $8.6 billion deal</h4>
+          </a>
+          <p>The Circle K owner struck a definitive agreement to acquire a controlling stake in Żabka Group, Poland's largest convenience retailer, in the largest acquisition of Couche-Tard's history, with Żabka's existing management, franchise model and brand identity set to be preserved after the deal closes. The deal significantly expands Couche-Tard's footprint across Central and Eastern Europe's fast-growing convenience retail market.</p>
+          <div class="src">Bloomberg</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.business-standard.com/companies/quarterly-results/vedanta-q1fy27-profit-demerger-revenue-results-126073000926_1.html" target="_blank" rel="noopener">
+            <h4>Vedanta board approves demerger of its real estate arm into new entity</h4>
+          </a>
+          <p>The mining conglomerate's board approved spinning off roughly 2,200 acres of surplus industrial land and other property into a newly listed entity, Vedanta Property Platforms, while also reappointing Arun Misra as the parent company's Executive Director and CEO for another year. Shareholders will receive one share of the new entity for every 20 Vedanta shares they currently hold.</p>
+          <div class="src">Business Standard</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.business-standard.com/companies/news/shailesh-jejurikar-appointed-chairman-of-p-g-s-board-of-directors-126072901283_1.html" target="_blank" rel="noopener">
+            <h4>P&amp;G names Shailesh Jejurikar board chairman as Jon Moeller retires</h4>
+          </a>
+          <p>Jejurikar, already President and CEO, will additionally become Chairman of the Board starting August 1, as Executive Chairman Jon Moeller steps down after 38 years at the consumer-goods giant in roles spanning chief executive, chief operating officer and chief financial officer. The move consolidates leadership under Jejurikar as the company continues restructuring its brand portfolio.</p>
+          <div class="src">Business Standard</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.bloomberg.com/news/articles/2026-07-30/blackstone-said-to-buy-25-billion-hsbc-australia-home-loan-book" target="_blank" rel="noopener">
+            <h4>Blackstone to acquire HSBC's entire $25 billion Australian home-loan portfolio</h4>
+          </a>
+          <p>Blackstone's credit, real estate and tactical-opportunities arms signed a definitive agreement to finance the acquisition of HSBC's entire Australian home and personal loan book, the largest home-loan-portfolio transaction ever recorded globally, marking HSBC's continued phased exit from consumer retail banking in Australia. Pepper Money will take over servicing the loans once the transaction closes, expected in early 2027.</p>
+          <div class="src">Bloomberg</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.bloomberg.com/news/articles/2026-07-29/ftc-split-lets-ionq-skywater-quantum-deal-close-without-changes" target="_blank" rel="noopener">
+            <h4>IonQ clears final hurdle to close $1.8 billion SkyWater acquisition</h4>
+          </a>
+          <p>A deadlocked US antitrust regulator allowed the quantum-computing company's purchase of semiconductor foundry SkyWater Technology to proceed without added conditions, ending IonQ's reliance on third-party chip foundries and giving it in-house manufacturing capability for its quantum processors going forward. SkyWater shareholders will receive $35 per share, split between cash and IonQ stock, once the deal closes.</p>
+          <div class="src">Bloomberg</div>
         </div>
       </div>
     </section>
@@ -655,7 +726,7 @@
 
 <div class="what-moved">
   <div class="label">What moved since last edition</div>
-  <div>Held: the Iran-US war stays Breaking's single lead and World's lead, but today's own increment is a sharper escalation than yesterday's -- a US strike killed a family on Qeshm Island, Iran hit back at US bases in Kuwait, Jordan and Bahrain, and Saudi Arabia joined the fight. Held: the NEET-UG crisis stays a Politics-only lead after Bihar's bandh turned violent, still short of Breaking's bar. Held: France &amp; Spain's wildfires stay a World "Also today" item as containment improves and evacuees return, not yet resolved but trending that way. New: Japan's Kyushu earthquake, DR Congo's Ebola outbreak and a Russian missile's incursion into Poland all independently clear the Breaking bar today and join Breaking's also-today alongside their World placements.</div>
+  <div>Held: the Iran-US war stays Breaking's single lead and World's lead, but today's own increment is a sharper escalation than yesterday's -- a US strike killed a family on Qeshm Island, Iran hit back at US bases in Kuwait, Jordan and Bahrain, and Saudi Arabia joined the fight. Held: the NEET-UG crisis stays a Politics-only lead after Bihar's bandh turned violent, still short of Breaking's bar. Held: France &amp; Spain's wildfires stay a World "Also today" item as containment improves and evacuees return, not yet resolved but trending that way. New: Japan's Kyushu earthquake, DR Congo's Ebola outbreak and a Russian missile's incursion into Poland all independently clear the Breaking bar today and join Breaking's also-today alongside their World placements. Also new: this edition introduces a permanent Brand Watch category, and adds hotlinked source images to every lead story where one could be reliably found.</div>
 </div>
 
 

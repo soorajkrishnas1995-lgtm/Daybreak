@@ -1,4 +1,4 @@
 [
-  { "date": "2026-07-29", "file": "index.html", "title": "Wednesday, July 29, 2026" },
-  { "date": ["2026-07-27","2026-07-27","2026-07-26"], "file": ["2026-07-27.html","index.html","2026-07-26.html"], "title": ["Monday, July 27, 2026","Monday, July 27, 2026","Sunday, July 26, 2026"] }
+  { "date": "2026-07-31", "file": "index.html", "title": "Friday, July 31, 2026" },
+  { "date": ["2026-07-29","2026-07-29","2026-07-27","2026-07-27","2026-07-26"], "file": ["2026-07-29.html","index.html","2026-07-27.html","index.html","2026-07-26.html"], "title": ["Wednesday, July 29, 2026","Wednesday, July 29, 2026","Monday, July 27, 2026","Monday, July 27, 2026","Sunday, July 26, 2026"] }
 ]

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daybreak — Monday, August 03, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FAF6EF;
+    --paper-deep: #F1E9D8;
+    --ink: #23262B;
+    --ink-soft: #5b5c62;
+    --navy: #1B2340;
+    --amber: #C7852E; --amber-bg: #FBEDDA;
+    --rust: #A8502F; --rust-bg: #F5E4DC;
+    --forest: #33654A; --forest-bg: #E3EDE3;
+    --steel: #2F5578; --steel-bg: #E1E9F1;
+    --plum: #6A4A6E; --plum-bg: #EDE3EE;
+    --teal: #206862; --teal-bg: #DFEBE8;
+    --coral: #A85040; --coral-bg: #F3E1DB;
+    --brass: #8A6D2E; --brass-bg: #EFE6D3;
+    --rule: rgba(35,38,43,0.13);
+    --spectrum: linear-gradient(90deg, var(--amber), var(--rust) 14%, var(--forest) 29%, var(--steel) 43%, var(--plum) 57%, var(--teal) 71%, var(--coral) 86%, var(--brass));
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: var(--ink);
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper) 55%, var(--paper-deep) 100%);
+    font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; font-size: 15px;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* TOP MASTHEAD — spans full page width */
+  .topbar {
+    text-align: center; padding: 30px 18px 0; position: relative;
+  }
+  .topbar .brand-row {
+    display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 2px;
+  }
+  .logo-mark { flex-shrink: 0; }
+  .logo-mark svg { display: block; }
+  .topbar .dateline {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px;
+  }
+  .topbar h1 {
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(32px, 5vw, 46px); margin: 0; letter-spacing: -0.01em;
+  }
+  .topbar .tagline { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-soft); margin-top: 5px; }
+  .topbar .sources-note {
+    font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--ink-soft); opacity: 0.75;
+    margin-top: 10px; padding-bottom: 16px;
+  }
+  .spectrum-bar { height: 4px; width: 100%; background: var(--spectrum); margin-top: 18px; }
+
+  .app { display: flex; min-height: 100vh; max-width: 1180px; margin: 0 auto; }
+
+  /* SIDEBAR — nav only */
+  .sidebar {
+    width: 240px; flex-shrink: 0; border-right: 1px solid rgba(35,38,43,0.14);
+    background: var(--paper-deep);
+    padding: 26px 16px; position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  }
+
+  .navlist { list-style: none; margin: 0; padding: 0; }
+  .navlist li { margin-bottom: 4px; }
+  .navlist button {
+    all: unset; display: flex; align-items: center; gap: 10px; width: 100%;
+    padding: 10px 10px; border-radius: 6px; cursor: pointer; font-size: 13.5px; font-weight: 500;
+    transition: background 0.15s ease;
+  }
+  .navlist button:hover { background: rgba(35,38,43,0.06); }
+  .navlist button.active { background: var(--ink); color: var(--paper); }
+  .navlist .dot { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+  .navlist .lbl { flex: 1; }
+  .navlist .n { font-family: 'IBM Plex Mono', monospace; font-size: 10px; opacity: 0.55; }
+
+  .navlist li[data-cat="breaking"] .dot { background: #9AA3B2; }
+  .navlist li[data-cat="politics"] .dot { background: var(--rust); }
+  .navlist li[data-cat="business"] .dot { background: var(--forest); }
+  .navlist li[data-cat="sports"] .dot { background: var(--steel); }
+  .navlist li[data-cat="world"] .dot { background: var(--plum); }
+  .navlist li[data-cat="tech"] .dot { background: var(--teal); }
+  .navlist li[data-cat="science"] .dot { background: var(--coral); }
+  .navlist li[data-cat="brand"] .dot { background: var(--brass); }
+
+  /* MAIN */
+  .main { flex: 1; min-width: 0; padding: 28px 34px 60px; }
+
+  .panel { display: none; animation: fadeIn 0.2s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .panel-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 3px solid var(--panel-accent, var(--ink)); }
+  .panel-head .swatch { width: 13px; height: 13px; border-radius: 3px; }
+  .panel-head h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 27px; margin: 0; }
+  .panel-head .sub { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-soft); margin-left: auto; }
+
+  #panel-breaking  { --panel-accent: #9AA3B2; }
+  #panel-politics  { --panel-accent: var(--rust); }
+  #panel-business  { --panel-accent: var(--forest); }
+  #panel-sports    { --panel-accent: var(--steel); }
+  #panel-world     { --panel-accent: var(--plum); }
+  #panel-tech      { --panel-accent: var(--teal); }
+  #panel-science   { --panel-accent: var(--coral); }
+  #panel-brand     { --panel-accent: var(--brass); }
+
+  /* Navy hero — used for the LEAD story in every category */
+  .hero {
+    padding: 22px 26px; background: var(--navy); color: var(--paper); border-radius: 6px; position: relative; overflow: hidden;
+    margin-bottom: 22px;
+  }
+  .hero::before {
+    content: ""; position: absolute; top: -60px; right: -60px; width: 220px; height: 220px;
+    border-radius: 50%; background: radial-gradient(circle, var(--accent-glow, rgba(199,133,46,0.35)), transparent 70%);
+  }
+  .hero .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, var(--amber)); margin-bottom: 12px; }
+  .hero .eyebrow .dt { width: 7px; height: 7px; border-radius: 50%; background: var(--accent, var(--amber)); }
+  .hero h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(21px, 2.6vw, 27px); line-height: 1.2; margin: 0 0 10px; max-width: 660px; }
+  .hero a.headline:hover h3 { text-decoration: underline; text-decoration-color: var(--accent, var(--amber)); text-underline-offset: 4px; }
+  .hero p { font-size: 14px; line-height: 1.55; color: rgba(250,246,239,0.85); max-width: 660px; margin: 0 0 10px; }
+  .hero .src { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: rgba(250,246,239,0.55); }
+
+  /* Lead-story image — hotlinked to the source's own preview image, never
+     rehosted; used inside .hero / .hero-card / .hero-feature .content */
+  .lead-img { margin: 0 0 14px; }
+  .lead-img img { width: 100%; max-height: 220px; object-fit: cover; border-radius: 6px; display: block; }
+  .lead-img .cap { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: rgba(250,246,239,0.5); margin-top: 5px; }
+  .hero-card .lead-img img { max-height: 130px; }
+
+  /* category accent colors for hero glow/eyebrow */
+  #panel-politics .hero { --accent: var(--rust); --accent-glow: rgba(168,80,47,0.35); }
+  #panel-business .hero { --accent: var(--forest); --accent-glow: rgba(51,101,74,0.35); }
+  #panel-sports .hero   { --accent: var(--steel); --accent-glow: rgba(47,85,120,0.35); }
+  #panel-world .hero    { --accent: var(--plum);  --accent-glow: rgba(106,74,110,0.35); }
+  #panel-tech .hero     { --accent: var(--teal);  --accent-glow: rgba(32,104,98,0.35); }
+  #panel-science .hero  { --accent: var(--coral); --accent-glow: rgba(168,80,64,0.35); }
+  #panel-brand .hero    { --accent: var(--brass); --accent-glow: rgba(138,109,46,0.35); }
+
+  /* FEATURE PANEL — full-pane treatment for Breaking / Top Story */
+  .feature-panel { display: flex; flex-direction: column; min-height: calc(100vh - 150px); }
+
+  .hero-feature {
+    display: grid; grid-template-columns: 38% 1fr; background: var(--navy); border-radius: 8px;
+    overflow: hidden; flex: 0 0 auto;
+  }
+  .hero-feature .art {
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+    background: linear-gradient(160deg, rgba(255,255,255,0.03), rgba(0,0,0,0.15));
+  }
+  .hero-feature .art svg { width: 100%; height: auto; max-width: 240px; }
+  .hero-feature .content { padding: 30px 34px; color: var(--paper); display: flex; flex-direction: column; justify-content: center; }
+  .hero-feature .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, var(--amber)); margin-bottom: 12px; }
+  .hero-feature .eyebrow .dt { width: 7px; height: 7px; border-radius: 50%; background: var(--accent, var(--amber)); }
+  .hero-feature h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(24px, 3vw, 32px); line-height: 1.18; margin: 0 0 14px; }
+  .hero-feature a.headline:hover h3 { text-decoration: underline; text-decoration-color: var(--accent, var(--amber)); text-underline-offset: 4px; }
+  .hero-feature p { font-size: 14.5px; line-height: 1.6; color: rgba(250,246,239,0.85); margin: 0 0 12px; }
+  .hero-feature .src { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(250,246,239,0.55); }
+  .hero-feature .lead-img img { max-height: 260px; }
+
+  /* Calmer "Top Story" mode — used when nothing clears the Breaking bar */
+  .feature-panel.calm .hero-feature { --accent: #9AA3B2; }
+  .feature-panel.calm .hero-feature .art { background: linear-gradient(160deg, rgba(255,255,255,0.02), rgba(0,0,0,0.1)); }
+
+  .also-today-wrap { flex: 1; margin-top: 26px; }
+  .also-today-wrap .section-label { margin-bottom: 10px; }
+  /* Row-flowing grid, not CSS column-count: column-count "balances" total
+     height across columns, which left a dangling gap under a short item
+     whenever its column's sibling ran longer. A grid lays items out
+     left-to-right/row-by-row instead, so each row's height is just
+     whatever that row needs. */
+  .also-today-wrap .story-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
+
+  /* Dual hero — India + Global, both cleared the Breaking bar */
+  .dual-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 0 0 auto; }
+  .hero-card {
+    background: var(--navy); color: var(--paper); border-radius: 8px; padding: 24px 26px;
+    position: relative; overflow: hidden; display: flex; flex-direction: column;
+  }
+  .hero-card .tag {
+    display: inline-flex; width: fit-content; font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px;
+    background: rgba(250,246,239,0.12); color: var(--paper); margin-bottom: 14px;
+  }
+  .hero-card .eyebrow { display: flex; align-items: center; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent, var(--amber)); margin-bottom: 10px; }
+  .hero-card .eyebrow .dt { width: 6px; height: 6px; border-radius: 50%; background: var(--accent, var(--amber)); }
+  .hero-card h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(18px, 1.9vw, 22px); line-height: 1.22; margin: 0 0 10px; }
+  .hero-card a.headline:hover h3 { text-decoration: underline; text-decoration-color: var(--accent, var(--amber)); text-underline-offset: 4px; }
+  .hero-card p { font-size: 12.8px; line-height: 1.5; color: rgba(250,246,239,0.85); margin: 0 0 10px; flex: 1; }
+  .hero-card .src { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: rgba(250,246,239,0.55); }
+  .hero-card.india { --accent: #C7852E; }
+  .hero-card.global { --accent: #2F5578; }
+
+  @media (max-width: 900px) {
+    .dual-hero { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 900px) {
+    .hero-feature { grid-template-columns: 1fr; }
+    .hero-feature .art { padding: 18px; }
+    .hero-feature .art svg { max-width: 140px; }
+    .also-today-wrap .story-list { grid-template-columns: 1fr; }
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-soft); margin: 4px 0 8px;
+  }
+
+  .story-list {}
+  .story { padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .story:last-child { border-bottom: none; }
+  .story a.headline:hover h4 { text-decoration: underline; text-underline-offset: 3px; }
+  .story h4 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 16px; line-height: 1.3; margin: 0 0 4px; }
+  .story p { font-size: 13px; line-height: 1.5; color: var(--ink-soft); margin: 0 0 4px; }
+  .story .src { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #8a8b8f; }
+
+  /* Mobile: sidebar becomes a top tab bar */
+  @media (max-width: 760px) {
+    .app { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid rgba(35,38,43,0.14); padding: 12px 16px; }
+    .topbar { padding: 18px 16px 0; }
+    .topbar h1 { font-size: 26px; }
+    .logo-mark svg { width: 30px; height: 30px; }
+    .topbar .sources-note { display: none; }
+    .spectrum-bar { margin-top: 14px; height: 3px; }
+    .navlist { display: flex; overflow-x: auto; gap: 6px; padding-bottom: 4px; }
+    .navlist li { margin-bottom: 0; flex-shrink: 0; }
+    .navlist button { white-space: nowrap; padding: 8px 12px; }
+    .navlist .n { display: none; }
+    .main { padding: 20px 18px 40px; }
+    .panel-head h2 { font-size: 22px; }
+    .hero { padding: 18px 20px; }
+  }
+
+  .what-moved {
+    border-top: 1px solid var(--rule); padding: 18px 34px 28px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .what-moved .label {
+    text-transform: uppercase; letter-spacing: 0.1em; font-size: 9.5px; opacity: 0.75; margin-bottom: 4px;
+  }
+
+  ::selection { background: var(--amber-bg); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="dateline" id="dateline">Monday, August 03, 2026</div>
+  <div class="brand-row">
+    <span class="logo-mark">
+      <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="19" fill="var(--navy)"/>
+        <circle cx="20" cy="24" r="8.5" fill="var(--amber)"/>
+        <path d="M6 27 Q20 20 34 27" stroke="var(--paper)" stroke-width="1.6" fill="none" opacity="0.55"/>
+        <path d="M4 31 Q20 25 36 31" stroke="var(--paper)" stroke-width="1.6" fill="none" opacity="0.3"/>
+      </svg>
+    </span>
+    <h1>Daybreak</h1>
+  </div>
+  <div class="tagline">Yesterday, briefed — India &amp; the world, before your coffee's cold</div>
+  <div class="sources-note">Sourced only from a fixed allowlist — wires, national papers &amp; primary institutions. No blogs, no aggregators.</div>
+  <div class="spectrum-bar"></div>
+</div>
+
+<div class="app">
+
+  <!-- SIDEBAR — nav only -->
+  <nav class="sidebar">
+    <ul class="navlist" id="navlist">
+      <li data-cat="breaking"><button class="active" data-target="breaking"><span class="dot"></span><span class="lbl">Breaking</span><span class="n">01</span></button></li>
+      <li data-cat="politics"><button data-target="politics"><span class="dot"></span><span class="lbl">Politics</span><span class="n">02</span></button></li>
+      <li data-cat="business"><button data-target="business"><span class="dot"></span><span class="lbl">Business &amp; Markets</span><span class="n">03</span></button></li>
+      <li data-cat="sports"><button data-target="sports"><span class="dot"></span><span class="lbl">Sports</span><span class="n">04</span></button></li>
+      <li data-cat="world"><button data-target="world"><span class="dot"></span><span class="lbl">World</span><span class="n">05</span></button></li>
+      <li data-cat="tech"><button data-target="tech"><span class="dot"></span><span class="lbl">Technology</span><span class="n">06</span></button></li>
+      <li data-cat="science"><button data-target="science"><span class="dot"></span><span class="lbl">Science &amp; Health</span><span class="n">07</span></button></li>
+      <li data-cat="brand"><button data-target="brand"><span class="dot"></span><span class="lbl">Brand Watch</span><span class="n">08</span></button></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- BREAKING -->
+    <section class="panel active" id="panel-breaking">
+      <div class="panel-head"><span class="swatch" style="background:var(--amber)"></span><h2>Breaking</h2><span class="sub">One story cleared today's bar</span></div>
+
+      <div class="feature-panel ">
+        
+        
+        <div class="hero-feature">
+          <div class="art"></div>
+          <div class="content">
+            <div class="lead-img"><img src="https://www.aljazeera.com/wp-content/uploads/2026/08/14191730-1785753363.jpg?resize=730%2C410&quality=80" alt="" loading="lazy"><span class="cap">Image: Al Jazeera</span></div>
+<div class="eyebrow"><span class="dt"></span>Iran War</div>
+            <a class="headline" href="https://www.aljazeera.com/news/2026/8/3/trump-says-new-iran-negotiations-starting-what-we-know" target="_blank" rel="noopener">
+              <h3>Trump calls off a planned massive strike on Iran and oil prices plunge over 4% as new talks are floated</h3>
+            </a>
+            <p>President Trump said he called off what would have been the 'biggest attack since World War II' on Iran, at the request of Qatar, Saudi Arabia and the UAE, describing a deal to fully reopen the Strait of Hormuz and end Iran's nuclear program as imminent. He said talks would resume Monday afternoon, but Iran's foreign ministry denied any direct negotiations with Washington, saying its only active talks are with Oman over safe passage through the strait, now in their 'final stages.' Oil prices fell more than 4%, with Brent crude dropping to $83.85 a barrel.</p>
+            <div class="src">Al Jazeera</div>
+          </div>
+        </div>
+        
+
+        <div class="also-today-wrap">
+          <div class="section-label">Also making headlines today</div>
+          <div class="story-list">
+            
+        <div class="story">
+          <a class="headline" href="https://www.aljazeera.com/news/2026/8/1/russian-missile-attack-kills-three-in-ukraines-kyiv" target="_blank" rel="noopener">
+            <h4>Kyiv missile barrage kills at least nine as a Russian drone breaches Romania's airspace again</h4>
+          </a>
+          <p>A missile and drone barrage struck Kyiv on Saturday, killing at least nine people and wounding 33, in the second major attack on the capital that week. Separately, a Russian drone crossed into Romanian airspace near the Danube Delta on Sunday -- the fourth such NATO-airspace incursion in a week -- prompting Bucharest to scramble F-16 jets before the drone was shot down back over Ukraine. Poland has still not invoked NATO's Article 4 over its own missile incursion.</p>
+          <div class="src">Al Jazeera · World</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.aljazeera.com/news/2026/8/2/israel-kills-five-in-gaza-despite-trumps-hamas-disarmament-plan" target="_blank" rel="noopener">
+            <h4>Israeli strikes kill 19 across Gaza despite Trump's new Hamas disarmament roadmap</h4>
+          </a>
+          <p>Israeli strikes killed at least 19 Palestinians on Sunday across Gaza City, Khan Younis and Deir el-Balah, the largest single-day toll in weeks, despite Trump's newly unveiled 20-point plan linking Hamas disarmament to a phased Israeli withdrawal. Israel is objecting to the plan's sequencing, insisting Hamas disarm fully before any pullback. Since the October ceasefire, Palestinian officials count more than 1,200 killed.</p>
+          <div class="src">Al Jazeera · World</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.aljazeera.com/news/2026/8/2/sudan-army-drone-attack-on-darfur-kills-35-rights-group-says" target="_blank" rel="noopener">
+            <h4>Sudanese army drone strike on a Darfur court building kills 35 civilians</h4>
+          </a>
+          <p>A Sudanese army drone strike hit a traditional court building in Garra al-Zawaya, a North Darfur village controlled by the paramilitary RSF, killing at least 35 civilians gathered for local dispute hearings, a rights group said. The strike adds to a mounting civilian toll in Sudan's civil war, where the RSF is separately besieging the city of El-Obeid, trapping hundreds of thousands of people.</p>
+          <div class="src">Al Jazeera · World</div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POLITICS -->
+    <section class="panel" id="panel-politics">
+      <div class="panel-head"><span class="swatch" style="background:var(--rust)"></span><h2>Politics</h2><span class="sub">India</span></div>
+      <div class="hero">
+        <div class="eyebrow"><span class="dt"></span>Delhi</div>
+            <a class="headline" href="https://www.aninews.in/news/national/general-news/neet-ug-paper-leak-case-cbi-files-20000-page-charge-sheet-court-grants-3-days-to-file-documents20260729105038/" target="_blank" rel="noopener">
+              <h3>CBI's 20,000-page NEET-UG chargesheet naming an insider leak network comes up before a Delhi fast-track court today</h3>
+            </a>
+            <p>The CBI's roughly 20,000-page chargesheet against all 13 arrested accused in the NEET-UG 2026 paper-leak case comes up today before Delhi's Rouse Avenue fast-track court, as prosecutors work to complete filing the case's full annexures -- 360 witnesses, 422 documents and 43 material objects. The chargesheet confirms the leak was an insider operation: three National Testing Agency subject-matter experts colluding with a private coaching syndicate to leak the paper before the May 3 exam, sat by 2.27 million aspirants for medical and dental college admission. The exam was cancelled and re-held after the leak surfaced.</p>
+            <div class="src">ANI</div>
+      </div>
+      <div class="section-label">Also today</div>
+      <div class="story-list">
+        
+        <div class="story">
+          <a class="headline" href="https://www.aninews.in/news/national/politics/assembly-bypolls-congress-ghanshyam-singh-takes-lead-in-datia-prashant-kishor-surges-ahead-in-bankipur20260803120449/" target="_blank" rel="noopener">
+            <h4>Congress wins Datia, Prashant Kishor claims his first personal bypoll victory in Bankipur</h4>
+          </a>
+          <p>Congress's Kunwar Ghanshyam Singh won the Madhya Pradesh Datia assembly bypoll, while Jan Suraaj founder Prashant Kishor won Bihar's Bankipur seat by about 18,953 votes -- his first personal electoral victory after his party won zero seats in the 2025 Bihar election. BJP counting agents reportedly left the Bankipur count centre as the party conceded.</p>
+          <div class="src">ANI</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://aninews.in/news/national/politics/amit-shah-sansad-se-gayab-kyun-oppn-protests-in-parliament-complex-against-police-action-on-students20260731110341/" target="_blank" rel="noopener">
+            <h4>Rahul Gandhi renews attack on Amit Shah over crackdown on NEET protesters</h4>
+          </a>
+          <p>Leader of the Opposition Rahul Gandhi renewed his accusation that Home Minister Amit Shah ordered pellet guns and lathis against students protesting the NEET-UG leak on July 20, demanding Shah's resignation. The government denies ordering any firing. The Rajya Sabha, adjourned since July 31 amid the repeated disruptions, resumes today.</p>
+          <div class="src">ANI</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.business-standard.com/india-news/lok-sabha-passes-births-and-deaths-amendment-bill-2026-amid-protests-126073100626_1.html" target="_blank" rel="noopener">
+            <h4>Lok Sabha passes Births and Deaths Amendment Bill without debate amid Opposition uproar</h4>
+          </a>
+          <p>The Lok Sabha passed the Registration of Births and Deaths (Amendment) Bill, 2026 by voice vote without debate on Friday, tightening magistrate-order requirements for late-reported births and deaths, amid continuing Opposition uproar over the NEET-protest crackdown. The bill, introduced by junior home minister Nityanand Rai, now goes to the Rajya Sabha.</p>
+          <div class="src">Business Standard</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.pib.gov.in/PressReleasePage.aspx?PRID=2258131" target="_blank" rel="noopener">
+            <h4>Lok Sabha raises Supreme Court's judge strength to 38 amid Opposition protests</h4>
+          </a>
+          <p>The Lok Sabha passed the Supreme Court (Number of Judges) Amendment Bill, 2026, raising the top court's sanctioned strength from 34 to 38 judges, replacing a May ordinance. Opposition members raised a statutory resolution against the ordinance's promulgation, rejected by voice vote amid protests over the NEET-UG crackdown and the Ram Mandir donation-theft case.</p>
+          <div class="src">PIB</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUSINESS -->
+    <section class="panel" id="panel-business">
+      <div class="panel-head"><span class="swatch" style="background:var(--forest)"></span><h2>Business &amp; Markets</h2><span class="sub">India &amp; Global</span></div>
+      <div class="hero">
+        <div class="eyebrow"><span class="dt"></span>Mumbai</div>
+            <a class="headline" href="https://www.business-standard.com/markets/news/stock-market-live-aug-3-nse-bse-sensex-today-nifty-gift-nifty-us-iran-talks-brent-crude-oil-price-ipo-q1-results-share-market-today-126080300064_1.html" target="_blank" rel="noopener">
+              <h3>Sensex and Nifty rally to a fourth straight winning session as Iran de-escalation sends oil prices tumbling</h3>
+            </a>
+            <p>India's Sensex closed up 544 points (0.7%) at 78,639 and the Nifty gained 1.6% to 24,774, their fourth straight winning session, as crude oil fell sharply after Trump said he would hold off further strikes on Iran pending new talks. IT led gains, with the Nifty IT index up more than 3% and TCS and Infosys both rising over 3%; banks and FMCG stocks also advanced, while media stocks lagged. Sustained foreign institutional inflows added to the rally, with the rupee holding steady near 95.3 to the dollar.</p>
+            <div class="src">Business Standard</div>
+      </div>
+      <div class="section-label">Also today</div>
+      <div class="story-list">
+        
+        <div class="story">
+          <a class="headline" href="https://www.cnbc.com/2026/08/03/oil-prices-today-wti-brent-hormuz-trump-iran.html" target="_blank" rel="noopener">
+            <h4>Oil prices tumble over 5% as Trump calls off Iran strikes and OPEC+ hikes output</h4>
+          </a>
+          <p>WTI crude fell about 5-6% to near $79.50 a barrel and Brent dropped to roughly $83 after Trump said he called off a planned major strike on Iran to allow new talks. OPEC+ separately agreed to raise output quotas by about 188,000 barrels a day from September, completing its unwind of 2023 production cuts.</p>
+          <div class="src">CNBC</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.business-standard.com/finance/news/rbi-mpc-august-meet-governor-monetary-policy-repo-rate-when-where-to-watch-126080300374_1.html" target="_blank" rel="noopener">
+            <h4>RBI's rate-setting panel begins its August meeting, a fourth straight pause expected</h4>
+          </a>
+          <p>The Reserve Bank of India's Monetary Policy Committee began its three-day meeting today, with Governor Sanjay Malhotra due to announce the decision Wednesday. Economists unanimously expect the repo rate to hold at 5.25% for a fourth consecutive review, with a 'neutral' but watchful stance given inflation risk, crude-price volatility and an uneven monsoon.</p>
+          <div class="src">Business Standard</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.cnbc.com/2026/08/02/stock-market-today-live-updates.html" target="_blank" rel="noopener">
+            <h4>Wall Street futures and European shares rise as oil slides on Iran de-escalation</h4>
+          </a>
+          <p>US stock futures and Europe's Stoxx 600 both climbed Monday as oil fell on the Iran news, with Germany's DAX up more than 1%. It's a heavy earnings week ahead, with Palantir, AMD, McDonald's and Disney all due to report, alongside Friday's July jobs report.</p>
+          <div class="src">CNBC</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.cnbc.com/amp/2026/08/03/gold-firms-as-oil-prices-slump-after-trump-holds-off-on-iran-attack.html" target="_blank" rel="noopener">
+            <h4>Gold firms near $4,055 an ounce as the oil slump eases inflation worries</h4>
+          </a>
+          <p>Spot gold rose about 0.4% to $4,055.36 an ounce on Monday as oil prices tumbled after Trump held off on further strikes on Iran, easing some inflation pressure even as markets still price in a chance of a September Fed rate move.</p>
+          <div class="src">CNBC</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.business-standard.com/amp/markets/ipo/zepto-delays-ipo-by-two-quarters-as-investors-push-for-lower-valuation-126073101531_1.html" target="_blank" rel="noopener">
+            <h4>Zepto delays its roughly Rs 8,000-crore IPO by two quarters over valuation concerns</h4>
+          </a>
+          <p>Quick-commerce firm Zepto has pushed back its planned initial public offering by nearly two quarters, as investors push for a lower valuation amid concerns over profitability, limited cash reserves and intensifying competition from Blinkit and Swiggy Instamart. The IPO had been expected to raise around Rs 8,010 crore.</p>
+          <div class="src">Business Standard</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPORTS -->
+    <section class="panel" id="panel-sports">
+      <div class="panel-head"><span class="swatch" style="background:var(--steel)"></span><h2>Sports</h2><span class="sub">Commonwealth Games 2026</span></div>
+      <div class="hero">
+        <div class="lead-img"><img src="https://worldboxing.org/wp-content/uploads/2026/08/776502834_2287868155_Boxing___Glasgow_2026_Commonw-1024x683.jpg" alt="" loading="lazy"><span class="cap">Image: Francois Nel/Getty Images</span></div>
+<div class="eyebrow"><span class="dt"></span>Glasgow -- Boxing</div>
+            <a class="headline" href="https://worldboxing.org/india-top-medal-table-at-glasgow-2026-commonwealth-games-with-seven-golds-and-three-silvers/" target="_blank" rel="noopener">
+              <h3>India's boxers win a record seven golds as the nation tops the Commonwealth Games boxing table</h3>
+            </a>
+            <p>India topped the Commonwealth Games boxing medal table with 10 medals -- seven gold and three silver -- the most golds ever won by one nation in boxing at a single Commonwealth Games, beating the previous best of six. Women's champions included world number one Jaismine Lamboria, Preeti Pawar, Sakshi Chaudhary, Priya Ghanghas and Arundhati Choudhary, while Sachin Siwach and Ankush Panghal won gold on the men's side. England finished a distant second with four golds, as the Glasgow Games wrapped up Sunday with the baton handed to Ahmedabad for 2030.</p>
+            <div class="src">World Boxing</div>
+      </div>
+      <div class="section-label">Also today</div>
+      <div class="story-list">
+        
+        <div class="story">
+          <a class="headline" href="https://www.aljazeera.com/sports/2026/7/31/pathirage-wins-sri-lankas-first-athletics-gold-in-commonwealth-javelin" target="_blank" rel="noopener">
+            <h4>Sri Lanka's Pathirage stuns field for historic javelin gold as Neeraj Chopra takes silver</h4>
+          </a>
+          <p>Rumesh Tharanga Pathirage won Sri Lanka's first-ever Commonwealth Games athletics gold with an 89.75m throw, while Neeraj Chopra claimed silver at 85.83m, a season-best after battling injury this year. Yash Vir Singh's bronze gave India its first CWG javelin 1-2 finish since Chopra's own 2018 win; defending champion Arshad Nadeem finished 9th.</p>
+          <div class="src">Al Jazeera</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.olympics.com/en/news/commonwealth-games-2026-athletics-india-day-2-report" target="_blank" rel="noopener">
+            <h4>Gulveer Singh becomes first Indian to win two track medals at one Commonwealth Games</h4>
+          </a>
+          <p>Gulveer Singh won silver in the men's 10,000m -- India's first-ever medal in the event at the Games -- then added bronze in the 5,000m, becoming the first Indian to medal in both events at a single Commonwealth Games. He is Asia's 10,000m champion and holds the national record.</p>
+          <div class="src">Olympics.com</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.aljazeera.com/sports/2026/8/3/jasprit-bumrah-ruled-out-of-sri-lanka-test-series-due-to-injury" target="_blank" rel="noopener">
+            <h4>Jasprit Bumrah ruled out of India's Sri Lanka Test tour, Auqib Nabi gets maiden call-up</h4>
+          </a>
+          <p>Star pacer Jasprit Bumrah has been ruled out of India's two-Test tour of Sri Lanka as he continues recovering from a left knee injury sustained during the England ODI series, with uncapped Jammu and Kashmir seamer Auqib Nabi earning a maiden call-up as his replacement. Shubman Gill captains the squad; Ravindra Jadeja also returns after an IPL elbow injury.</p>
+          <div class="src">Al Jazeera</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.business-standard.com/sports/commonwealth-games/glasgow-hands-cwg-baton-to-india-as-ahmedabad-set-to-host-2030-games-126080300030_1.html" target="_blank" rel="noopener">
+            <h4>Glasgow hands the Commonwealth Games baton to India's Ahmedabad for 2030</h4>
+          </a>
+          <p>The 2026 Commonwealth Games closed in Glasgow with Commonwealth Sport president Donald Rukare presenting the Games flag to IOA president PT Usha, as Olympic champion Neeraj Chopra joined her onstage, formally handing hosting duties to Ahmedabad for 2030. India finished fourth overall with 39 medals, its best-ever showing on a slimmed-down 10-sport programme.</p>
+          <div class="src">Business Standard</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.olympics.com/en/news/tennis-canadian-open-2026-all-results-scores-atp-masters-1000-event-full-list" target="_blank" rel="noopener">
+            <h4>ATP and WTA Masters events get underway in Toronto and Montreal</h4>
+          </a>
+          <p>The Canadian Open's ATP Masters 1000 event in Montreal and its WTA 1000 counterpart in Toronto began first-round play, with Alexander Zverev top-seeded among the men in the absence of Jannik Sinner and Carlos Alcaraz, and defending champion Ben Shelton also in the draw. Quarterfinals are set for August 10-11.</p>
+          <div class="src">Olympics.com</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORLD -->
+    <section class="panel" id="panel-world">
+      <div class="panel-head"><span class="swatch" style="background:var(--plum)"></span><h2>World</h2><span class="sub">Global</span></div>
+      <div class="hero">
+        <div class="lead-img"><img src="https://www.aljazeera.com/wp-content/uploads/2026/08/14191730-1785753363.jpg?resize=730%2C410&quality=80" alt="" loading="lazy"><span class="cap">Image: Al Jazeera</span></div>
+<div class="eyebrow"><span class="dt"></span>Iran War</div>
+            <a class="headline" href="https://www.aljazeera.com/news/2026/8/3/trump-says-new-iran-negotiations-starting-what-we-know" target="_blank" rel="noopener">
+              <h3>Trump calls off a planned massive strike on Iran and oil prices plunge over 4% as new talks are floated</h3>
+            </a>
+            <p>President Trump said he called off what would have been the 'biggest attack since World War II' on Iran, at the request of Qatar, Saudi Arabia and the UAE, describing a deal to fully reopen the Strait of Hormuz and end Iran's nuclear program as imminent. He said talks would resume Monday afternoon, but Iran's foreign ministry denied any direct negotiations with Washington, saying its only active talks are with Oman over safe passage through the strait, now in their 'final stages.' Oil prices fell more than 4%, with Brent crude dropping to $83.85 a barrel.</p>
+            <div class="src">Al Jazeera</div>
+      </div>
+      <div class="section-label">Also today</div>
+      <div class="story-list">
+        
+        <div class="story">
+          <a class="headline" href="https://www.aljazeera.com/news/2026/8/2/israel-kills-five-in-gaza-despite-trumps-hamas-disarmament-plan" target="_blank" rel="noopener">
+            <h4>Israeli strikes kill 19 across Gaza despite Trump's new Hamas disarmament roadmap</h4>
+          </a>
+          <p>Israeli strikes killed at least 19 Palestinians on Sunday across Gaza City, Khan Younis and Deir el-Balah, the largest single-day toll in weeks, despite Trump's newly unveiled 20-point plan linking Hamas disarmament to a phased Israeli withdrawal. Israel is objecting to the plan's sequencing, insisting Hamas disarm fully before any pullback. Since the October ceasefire, Palestinian officials count more than 1,200 killed.</p>
+          <div class="src">Al Jazeera</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.aljazeera.com/news/2026/8/2/sudan-army-drone-attack-on-darfur-kills-35-rights-group-says" target="_blank" rel="noopener">
+            <h4>Sudanese army drone strike on a Darfur court building kills 35 civilians</h4>
+          </a>
+          <p>A Sudanese army drone strike hit a traditional court building in Garra al-Zawaya, a North Darfur village controlled by the paramilitary RSF, killing at least 35 civilians gathered for local dispute hearings, a rights group said. The strike adds to a mounting civilian toll in Sudan's civil war, where the RSF is separately besieging the city of El-Obeid, trapping hundreds of thousands of people.</p>
+          <div class="src">Al Jazeera</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.aljazeera.com/news/2026/8/1/russian-missile-attack-kills-three-in-ukraines-kyiv" target="_blank" rel="noopener">
+            <h4>Kyiv missile barrage kills at least nine as a Russian drone breaches Romania's airspace again</h4>
+          </a>
+          <p>A missile and drone barrage struck Kyiv on Saturday, killing at least nine people and wounding 33, in the second major attack on the capital that week. Separately, a Russian drone crossed into Romanian airspace near the Danube Delta on Sunday -- the fourth such NATO-airspace incursion in a week -- prompting Bucharest to scramble F-16 jets before the drone was shot down back over Ukraine. Poland has still not invoked NATO's Article 4 over its own missile incursion.</p>
+          <div class="src">Al Jazeera</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.aljazeera.com/news/2026/7/31/dr-congo-ebola-epidemic-becomes-worlds-second-largest-outbreak" target="_blank" rel="noopener">
+            <h4>DR Congo's Ebola outbreak remains the world's second-largest ever recorded</h4>
+          </a>
+          <p>Confirmed cases stand at 3,605 and deaths at 1,587 as of the latest count, a 44% fatality rate, making the Bundibugyo-strain outbreak the second-largest Ebola epidemic on record. It has spread across five DR Congo provinces and into Uganda, with no approved vaccine or treatment; the WHO's next emergency committee review is scheduled for August 18.</p>
+          <div class="src">Al Jazeera</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.aljazeera.com/news/2026/8/2/migrant-deaths-in-ceuta-rise-to-72-after-border-surge-from-morocco" target="_blank" rel="noopener">
+            <h4>Ceuta border crisis eases as most migrants who crossed from Morocco return</h4>
+          </a>
+          <p>Spain's interior minister said the mass-crossing crisis at the Ceuta enclave has been 'almost entirely reversed,' with more than 48,000 of the roughly 60,000 people who crossed from Morocco already back within 48 hours. The confirmed death toll stands at 72, with no new deaths reported since; Spain is installing a 500-metre barrier on the sea border.</p>
+          <div class="src">Al Jazeera</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECH -->
+    <section class="panel" id="panel-tech">
+      <div class="panel-head"><span class="swatch" style="background:var(--teal)"></span><h2>Technology</h2><span class="sub">AI &amp; Industry</span></div>
+      <div class="hero">
+        <div class="eyebrow"><span class="dt"></span>Beijing</div>
+            <a class="headline" href="https://www.cnbc.com/2026/08/03/alibaba-ai-model-qwen-rival-anthropic.html" target="_blank" rel="noopener">
+              <h3>Alibaba unveils Qwen3.8-Max, its largest-ever AI model, claiming benchmark scores that rival Anthropic's Claude</h3>
+            </a>
+            <p>Alibaba released Qwen3.8-Max, a 2.4-trillion-parameter model it says scores comparable to or better than Anthropic's Claude on several benchmarks, ranking above rival Moonshot's Kimi K3 on some leaderboards. Alibaba's Hong Kong-listed shares jumped as the announcement fed a broader wave of Chinese AI releases this week. The launch comes as Chinese AI labs increasingly compete on both raw capability and price, intensifying pressure on Western AI developers to justify their premium pricing amid a fast-moving global AI race.</p>
+            <div class="src">CNBC</div>
+      </div>
+      <div class="section-label">Also today</div>
+      <div class="story-list">
+        
+        <div class="story">
+          <a class="headline" href="https://www.bloomberg.com/news/articles/2026-07-30/judge-voices-doubt-us-has-justified-its-ban-on-anthropic-ai" target="_blank" rel="noopener">
+            <h4>Judge signals US lacks evidence for Anthropic 'supply-chain risk' ban</h4>
+          </a>
+          <p>US District Judge Rita Lin said she saw no new evidence justifying the Pentagon's designation of Anthropic as a 'supply chain risk,' calling the government's argument that Anthropic's criticism of the Defense Department justified the ban 'really troubling.' The case challenges Trump's February order barring agencies from using Anthropic's technology.</p>
+          <div class="src">Bloomberg</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.bloomberg.com/news/articles/2026-07-31/tesla-faces-us-auto-safety-probe-over-risk-of-suspension-failure" target="_blank" rel="noopener">
+            <h4>US safety regulator opens probe into 1.2 million Teslas over suspension failures</h4>
+          </a>
+          <p>NHTSA opened a preliminary probe into roughly 1.2 million 2018-2023 Tesla Model 3 and Model Y vehicles after 156 complaints of a front suspension link detaching and causing loss of steering control. No crashes or injuries have been reported yet; the review is the first step that could lead to a recall.</p>
+          <div class="src">Bloomberg</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.business-standard.com/finance/news/upi-transactions-hit-record-23-66-billion-in-july-value-rs-29-88-trillion-126080100548_1.html" target="_blank" rel="noopener">
+            <h4>India's UPI processes a record 23.66 billion transactions worth Rs 29.88 trillion in July</h4>
+          </a>
+          <p>NPCI data showed UPI transaction volumes hit a record 23.66 billion in July, worth Rs 29.88 trillion, up 22% year-on-year, surpassing May's previous record. The platform now handles roughly 763 million transactions a day, underscoring India's continued shift toward digital payments.</p>
+          <div class="src">Business Standard</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.business-standard.com/economy/news/india-s-150-billion-chip-demand-forecast-rewires-semiconductor-story-126080200460_1.html" target="_blank" rel="noopener">
+            <h4>India raises its semiconductor demand forecast to $150 billion by 2030</h4>
+          </a>
+          <p>The IT ministry revised India's semiconductor demand forecast to $150 billion by 2030, about 50% higher than a January 2025 estimate, as chip imports rose 44% year-on-year. Micron, Kaynes Semicon and CG Power have begun commercial chip production domestically, while Tata's Dholera fab is now expected mid-2028.</p>
+          <div class="src">Business Standard</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCIENCE -->
+    <section class="panel" id="panel-science">
+      <div class="panel-head"><span class="swatch" style="background:var(--coral)"></span><h2>Science &amp; Health</h2><span class="sub">Research</span></div>
+      <div class="hero">
+        <div class="lead-img"><img src="https://www.sciencedaily.com/images/1920/mars-atmosphere-solar-wind.webp" alt="" loading="lazy"><span class="cap">Image: Chi Zhang, Boston University</span></div>
+<div class="eyebrow"><span class="dt"></span>Space Science</div>
+            <a class="headline" href="https://www.sciencedaily.com/releases/2026/08/260801042816.htm" target="_blank" rel="noopener">
+              <h3>NASA and China's Mars orbiters together reveal how solar wind waves are stripping the planet's atmosphere</h3>
+            </a>
+            <p>Simultaneous observations by NASA's MAVEN and China's Tianwen-1 orbiters show the solar wind generates rolling Kelvin-Helmholtz waves at the boundary of Mars' upper atmosphere, creating plasma clouds that carry atmospheric ions into space. The effect is concentrated on one side of the planet depending on the solar wind's electric-field direction, according to research published in Science Advances. Scientists say the mechanism is likely a major reason Mars transformed from a once-wetter, thicker-atmosphere world into today's cold, dry planet, offering a rare joint US-China data set on the same phenomenon.</p>
+            <div class="src">ScienceDaily</div>
+      </div>
+      <div class="section-label">Also today</div>
+      <div class="story-list">
+        
+        <div class="story">
+          <a class="headline" href="https://www.sciencedaily.com/releases/2026/08/260801042811.htm" target="_blank" rel="noopener">
+            <h4>Eating less protein could slow aging, a major review of 350+ studies finds</h4>
+          </a>
+          <p>A Cell Metabolism review of more than 350 studies found lower protein intake may improve metabolism, cut inflammation and activate longevity pathways similar to calorie restriction, partly by raising the hormone FGF21. The effect is population-dependent -- sedentary adults may be over-consuming protein, while athletes and older adults likely still need more.</p>
+          <div class="src">ScienceDaily</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://doi.org/10.1038/s41514-026-00421-6" target="_blank" rel="noopener">
+            <h4>Study estimates human lifespan's outer limit at around 156 years, even without disease</h4>
+          </a>
+          <p>Modeling by Russia's Skoltech Institute, combining four organ systems with cell types like neurons as bottlenecks, found somatic mutation accumulation alone would cap median human lifespan around 156 years (range 146-194), even if every age-related disease were cured. Researchers frame it as a thought experiment, not a near-term prediction.</p>
+          <div class="src">npj Aging</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.sciencedaily.com/releases/2026/07/260731034150.htm" target="_blank" rel="noopener">
+            <h4>Scientists confirm a Milky Way object accelerates protons past 1 quadrillion electron-volts</h4>
+          </a>
+          <p>Combined data from NASA's Fermi telescope, LHAASO and Tibet AS-gamma confirmed an object in the constellation Aquila, dubbed a proton PeVatron, as a natural particle accelerator pushing protons beyond 1 PeV -- helping solve a century-old mystery about the origin of cosmic rays.</p>
+          <div class="src">ScienceDaily</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.sciencedaily.com/releases/2026/07/260731034135.htm" target="_blank" rel="noopener">
+            <h4>Blood pressure guidelines may be missing potassium, researchers argue</h4>
+          </a>
+          <p>University of Vermont researchers argue that hypertension guidance focused solely on cutting sodium works less well than pairing it with more potassium-rich foods like fruits, vegetables and legumes, since potassium intake is far below optimal in both developed and developing countries.</p>
+          <div class="src">ScienceDaily</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.sciencedaily.com/releases/2026/08/260801042831.htm" target="_blank" rel="noopener">
+            <h4>A once-a-week interval workout may meaningfully cut abdominal fat, a trial finds</h4>
+          </a>
+          <p>A four-month trial of 315 adults with central obesity found about 75 minutes of brisk interval exercise a week -- essentially one weekly session -- produced meaningful reductions in waist and abdominal fat, suggesting a low-time-commitment option for tackling obesity.</p>
+          <div class="src">ScienceDaily</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRAND WATCH -->
+    <section class="panel" id="panel-brand">
+      <div class="panel-head"><span class="swatch" style="background:var(--brass)"></span><h2>Brand Watch</h2><span class="sub">Corporate &amp; Consumer</span></div>
+      <div class="hero">
+        <div class="eyebrow"><span class="dt"></span>Pharma Megadeal</div>
+            <a class="headline" href="https://www.cnbc.com/2026/08/03/astrazeneca-bristol-myers-squibb-merger-talks.html" target="_blank" rel="noopener">
+              <h3>AstraZeneca shares slide as much as 7% after reports of $400 billion merger talks with Bristol Myers Squibb</h3>
+            </a>
+            <p>AstraZeneca and Bristol Myers Squibb have held preliminary merger talks that could create the world's fourth-largest drugmaker by market value at a combined valuation near $400 billion, a person familiar with the matter told Reuters. AstraZeneca shares fell as much as 7% Monday, while Bristol Myers jumped more than 5%, as analysts questioned the strategic logic given AstraZeneca's own strong growth and flagged possible antitrust overlap between the companies' competing cancer drugs, Imfinzi and Opdivo. No agreement has been reached, and talks could still be delayed or collapse.</p>
+            <div class="src">CNBC</div>
+      </div>
+      <div class="section-label">Also today</div>
+      <div class="story-list">
+        
+        <div class="story">
+          <a class="headline" href="https://www.business-standard.com/companies/news/swiggy-instamart-ceo-amitesh-jha-resigns-nandita-sinha-appointed-126072800594_1.html" target="_blank" rel="noopener">
+            <h4>Nandita Sinha takes over as Swiggy Instamart CEO, replacing Amitesh Jha</h4>
+          </a>
+          <p>Former Myntra chief Nandita Sinha becomes CEO of Swiggy's quick-commerce arm Instamart today, replacing Amitesh Kumar Jha, who resigned to pursue other opportunities. The change comes amid intensifying quick-commerce competition from Blinkit and Zepto, and follows a string of other recent executive transitions at Swiggy.</p>
+          <div class="src">Business Standard</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://aninews.in/news/business/fssai-acts-against-liquor-makers-over-flavour-labelling-violations20260802223117/" target="_blank" rel="noopener">
+            <h4>FSSAI cracks down on Old Monk, McDowell's and other brands over flavouring and age claims</h4>
+          </a>
+          <p>India's food safety regulator acted against several liquor makers, including Old Monk, McDowell's No.1, Bagpiper and Antiquity Blue, for using flavours that mimic rum or whisky made from plain spirit, and for misleading age claims on labels. The government backed the action, saying an age claim must reflect the youngest spirit in a blend.</p>
+          <div class="src">ANI</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.cnn.com/2026/07/27/business/cracker-barrel-ceo-julie-masino-steps-down" target="_blank" rel="noopener">
+            <h4>Cracker Barrel's CEO steps down a year after her logo rebrand sparked a backlash</h4>
+          </a>
+          <p>Julie Masino is stepping down as Cracker Barrel's CEO next month, about a year after a redesigned logo -- which dropped the chain's 'Old Timer' character -- triggered a major public backlash, including criticism from President Trump. Former Bloomin' Brands CEO David Deno will take over.</p>
+          <div class="src">CNN</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.cnn.com/2026/07/24/media/paramount-warner-bros-discovery-merger-delay" target="_blank" rel="noopener">
+            <h4>Paramount Skydance agrees to delay its $111 billion Warner Bros. Discovery takeover</h4>
+          </a>
+          <p>Paramount Skydance has agreed not to close its $111 billion acquisition of Warner Bros. Discovery until five days after an antitrust trial concludes, or June 2027, whichever comes first, after a coalition of state attorneys general won a temporary restraining order blocking the deal. Paramount and the states still disagree on when that trial should start.</p>
+          <div class="src">CNN</div>
+        </div>
+
+        <div class="story">
+          <a class="headline" href="https://www.business-standard.com/companies/news/nclt-pauses-byju-s-insolvency-bidding-till-aug-31-giving-founders-relief-126072301153_1.html" target="_blank" rel="noopener">
+            <h4>NCLT pauses Byju's insolvency bidding process after founders challenge a lender claim</h4>
+          </a>
+          <p>The National Company Law Tribunal in Bengaluru stayed the insolvency bidding process for Byju's parent Think and Learn, after its founders challenged the admission of a Rs 11,433 crore claim by representatives of the company's US lenders. The resolution professional is barred from inviting buyer bids until the matter returns August 31.</p>
+          <div class="src">Business Standard</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+
+<div class="what-moved">
+  <div class="label">What moved since last edition</div>
+  <div>Held: the Iran-US war stays Breaking's single lead and World's lead after Trump called off what he said would have been the 'biggest attack since World War II' on Iran, and oil fell over 4% -- though Iran denies any direct US talks are happening today. Promoted: the NEET-UG chargesheet comes before a Delhi court today, moving the story from Politics 'Also today' back to the Politics lead. Retired: France &amp; Spain's wildfires (Gironde fire contained, evacuees home) and Japan's Kyushu earthquake (rescue operation formally ended) both exit tracking as genuinely resolved. Demoted: DR Congo's Ebola outbreak and Spain's Ceuta border crossing both drop out of Breaking to World 'Also today' items -- Ebola for lack of a fresh dated increment, Ceuta because Spain says the crisis is 'almost entirely reversed.' Held: the Russia-Ukraine NATO-airspace flare-up stays in Breaking's also-today after a fresh Romanian drone incursion and an updated Kyiv toll.</div>
+</div>
+
+
+<script>
+  // Dateline and <title> are baked in at render time (Monday, August 03, 2026), not set here --
+  // pages are persisted (emailed, hosted on GitHub Pages) and may be opened on a
+  // different day than the one they report on, so the visible date must stay
+  // whatever the content actually covers rather than always jumping to "today".
+
+  const buttons = document.querySelectorAll('.navlist button');
+  const panels = document.querySelectorAll('.panel');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-target');
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      panels.forEach(p => p.classList.remove('active'));
+      document.getElementById('panel-' + target).classList.add('active');
+      document.querySelector('.main').scrollTo(0, 0);
+      window.scrollTo(0, 0);
+    });
+  });
+</script>
+
+</body>
+</html>
